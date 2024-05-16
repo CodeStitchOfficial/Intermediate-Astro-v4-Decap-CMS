@@ -1,0 +1,19 @@
+{
+  "name": "astro-kit-less",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.8.3",
+    "astro-icon": "^1.1.0",
+    "autoprefixer": "^10.4.19",
+    "decap-cms-app": "^3.1.10",
+    "less": "^4.2.0"
+  }
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "key": "Home",
+    "url": "/"
+  },
+  {
+    "key": "About Us",
+    "url": "/about/"
+  },
+  {
+    "key": "Projects",
+    "url": "/projects/"
+  },
+  {
+    "key": "Reviews",
+    "url": "/reviews/"
+  }
+]
