@@ -1,5 +1,7 @@
 ---
 import navData from "@data/navData.json";
+import { Icon } from 'astro-icon/components';
+
 ---
 
 <!-- ============================================ --><!--                 Navigation                   --><!-- ============================================ -->
@@ -19,7 +21,7 @@ import navData from "@data/navData.json";
     <!--Navigation List-->
     <nav class="cs-nav" role="navigation">
       <!--Mobile Nav Toggle-->
-      <button class="cs-toggle" aria-label="mobile menu toggle">
+      <button class="cs-toggle" id="mobile-menu-toggle" aria-expanded="false"  aria-controls="cs-expanded-ul" aria-label="mobile menu toggle">
         <div class="cs-box" aria-hidden="true">
           <span class="cs-line cs-line1" aria-hidden="true"></span>
           <span class="cs-line cs-line2" aria-hidden="true"></span>
@@ -29,7 +31,7 @@ import navData from "@data/navData.json";
       <!-- We need a wrapper div so we can set a fixed height on the cs-ul in case the nav list gets too long from too many dropdowns being opened and needs to have an overflow scroll. This wrapper acts as the background so it can go the full height of the screen and not cut off any overflowing nav items while the cs-ul stops short of the bottom of the screen, which keeps all nav items in view no matter how mnay there are-->
       <!-- This also allows for easy substitution of CodeStitch navigations. Just replace the .cs-ul-wrapper in the new navigation with this one -->
       <div class="cs-ul-wrapper">
-        <ul id="cs-expanded" class="cs-ul" aria-expanded="false">
+        <ul id="cs-expanded-ul" class="cs-ul" aria-expanded="false">
           {
             navData.map((entry) => (
               <li
@@ -48,8 +50,9 @@ import navData from "@data/navData.json";
                 >
                   {entry.key}
                 </a>
+                {entry.children?.length > 0 && (<Icon name="mdi--caret" class="cs-drop-icon"/>)}
                 {entry.children?.length > 0 && (
-                  <ul class="cs-drop-ul">
+                  <ul class="cs-drop-ul" aria-expanded="false">
                     {entry.children.map((child) => (
                       <li class="cs-drop-li">
                         <a href={child.url} class="cs-li-link cs-drop-link">
@@ -329,10 +332,10 @@ import navData from "@data/navData.json";
     .cs-li-link {
       /* 16px - 24px */
       font-size: clamp(1rem, 2.5vw, 1.5rem);
+      color: inherit;
       line-height: 1.2em;
       text-decoration: none;
       margin: 0;
-      color: var(--headerColor);
       display: inline-block;
       position: relative;
 
@@ -397,6 +400,8 @@ import navData from "@data/navData.json";
   #cs-navigation {
     .cs-dropdown {
       color: var(--bodyTextColorWhite);
+      color: var(--headerColor);
+
       position: relative;
 
       &.cs-active {
@@ -412,6 +417,10 @@ import navData from "@data/navData.json";
         .cs-drop-link {
           opacity: 1;
         }
+
+        .cs-drop-icon {
+          transform: rotate(0);
+        }
       }
 
       .cs-li-link {
@@ -423,10 +432,10 @@ import navData from "@data/navData.json";
     .cs-drop-icon {
       width: (15/16rem);
       height: auto;
-      position: absolute;
-      top: 50%;
-      right: (-20/16rem);
-      transform: translateY(-50%);
+      display: inline-block;
+      color: inherit;
+      transform: rotate(180deg);
+      transition: 0.3s;
     }
 
     .cs-drop-ul {
@@ -470,7 +479,8 @@ import navData from "@data/navData.json";
   #cs-navigation {
     .cs-dropdown {
       position: relative;
-      &:hover {
+      &:hover,
+      &.cs-active {
         cursor: pointer;
         .cs-drop-ul {
           opacity: 1;
@@ -485,10 +495,25 @@ import navData from "@data/navData.json";
       }
     }
 
+    .cs-dropdown:has(.cs-drop-icon) {
+      display: flex;
+      align-items: center;
+      &:hover {
+        .cs-drop-icon {
+        transform: rotate(0);
+        }
+      }
+    }
+
+
     .cs-drop-icon {
       width: (15/16rem);
       height: auto;
       display: inline-block;
+      color: inherit;
+      transform: rotate(180deg);
+      transition: 0.3s;
+      
     }
 
     .cs-drop-ul {
@@ -580,6 +605,12 @@ import navData from "@data/navData.json";
 
         &:hover {
           background-color: #f7f7f7;
+        }
+
+        &:focus-within {
+          // background-color: #f7f7f7;
+          outline: 2px solid currentColor;
+          outline-offset: -2px;
         }
 
         &:before {
@@ -747,90 +778,3 @@ import navData from "@data/navData.json";
 }
 </style>
 
-<script>
-
-// NAV
-document.addEventListener('astro:page-load', () => { // Make the script controlling the <Hamburger /> mobile menu component available after navigating to a new page.
-
-// add classes for mobile navigation toggling
-var CSbody = document.querySelector('body');
-const CSnavbarMenu = document.querySelector('#cs-navigation');
-const CShamburgerMenu = document.querySelector('#cs-navigation .cs-toggle');
-
-
-  CShamburgerMenu.addEventListener('click', function () {
-    CShamburgerMenu.classList.toggle('cs-active');
-    CSnavbarMenu.classList.toggle('cs-active');
-    CSbody.classList.toggle('cs-open');
-    // run the function to check the aria-expanded value
-    ariaExpanded();
-  });
-
-
-// checks the value of aria expanded on the cs-ul and changes it accordingly whether it is expanded or not
-function ariaExpanded() {
-    const csUL = document.querySelector('#cs-expanded');
-    const csExpanded = csUL.getAttribute('aria-expanded');
-
-    if (csExpanded === 'false') {
-        csUL.setAttribute('aria-expanded', 'true');
-    } else {
-        csUL.setAttribute('aria-expanded', 'false');
-    }
-}
-
-// mobile nav toggle code
-const dropDowns = Array.from(document.querySelectorAll('#cs-navigation .cs-dropdown'));
-for (const item of dropDowns) {
-    const onClick = () => {
-        item.classList.toggle('cs-active');
-    };
-    item.addEventListener('click', onClick);
-}
-
-});
-
-
-// DARK MODE //
-
-document.addEventListener('astro:page-load', () => {
-// helper functions to toggle dark mode
-function enableDarkMode() {
-	document.body.classList.add('dark-mode');
-	localStorage.setItem('theme', 'dark');
-}
-function disableDarkMode() {
-	document.body.classList.remove('dark-mode');
-	localStorage.setItem('theme', 'light');
-}
-
-// determines a new users dark mode preferences
-function detectColorScheme() {
-	// default to the light theme
-	let theme = 'light';
-
-	// check localStorage for a saved 'theme' variable. if it's there, the user has visited before, so apply the necessary theme choices
-	if (localStorage.getItem('theme')) {
-		theme = localStorage.getItem('theme');
-	}
-	// if it's not there, check to see if the user has applied dark mode preferences themselves in the browser
-	else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-		theme = 'dark';
-	}
-
-	// if there is no preference set, the default of light will be used. apply accordingly
-	theme === 'dark' ? enableDarkMode() : disableDarkMode();
-}
-
-// run on page load
-detectColorScheme();
-
-// add event listener to the dark mode button toggle
-document.getElementById('dark-mode-toggle').addEventListener('click', () => {
-	// on click, check localStorage for the dark mode value, use to apply the opposite of what's saved
-	localStorage.getItem('theme') === 'light' ? enableDarkMode() : disableDarkMode();
-});
-
-})
-
-</script>
