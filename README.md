@@ -100,6 +100,7 @@ This kit ships the following packages:
 |   |   └── utils.js
 │   ├── pages/
 |   |   └── blog/
+|   |   └── projects/
 |   └── styles/
 ├── .astro.config.mjs
 ├── .postcss.config.cjs
@@ -218,14 +219,15 @@ Thanks to Astro Navigation, adding new pages is as simple as adding a file to sr
 Starting from the top, you can see some data enclosed in --- tags. This is known as the page's front matter, which provides additional data to when it comes to
 rendering your pages.
 
+To add sub-pages, you will forst need to create a new folder under `src/pages/` and populate it with `.astro` pages. Look at the `src/pages/projects` forlder for an example. Don't forget to edit `navData.json` to handle the navigation.
+
 <a name="navigationViaFrontMatter"></a>
 
 ### Navigation via navData.json
 
 The header navigation in the project is powered by the `navData.json` file. Each page in the navigation should be included as an item with a `key` property (page title to be displayed) and a `url` property (include a trailing slash). 
 
-To add subpages, include a `children` property. The `children` property should be an array that contains more page objects (i.e., object containing a `key` and `url` property.) If a page has a `children` array property is specified, a dropdown will be created, providing
-a Navigation + Dropdown Stitch is being used (see below). Navigations will render in order.
+To add subpages, include a `children` property. The `children` property should be an array that contains more page objects (i.e., object containing a `key` and `url` property.) If a page has a `children` array property is specified, a dropdown will be created, providing a Navigation + Dropdown Stitch is being used (see below). Navigations will render in order.
 
 > If you wish to use an alternative Navigation stitch, you are welcome to swap out the `.cs-ul-wrapper` div in the Stitch for the one used in this starter kit. This
 > will allow you to continue to reap the benefits of navigation vi navData.json. If you want to include dropdown menus in your navigation, you can use the `.cs-ul-wrapper` div below
