@@ -5,7 +5,7 @@ author: Code Stitch
 date: 2023-06-08T15:26:46.705Z
 tags:
   - post
-image: /assets/images/blog/landing.jpg
+image: src/assets/images/blog/landing.webp
 imageAlt: Kitchen
 ---
 
