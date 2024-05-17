@@ -59,6 +59,10 @@ const {description, title} = Astro.props;
             }
             </title>
 
+            <!-- Sitewide Scripts -->
+            <script defer src="/src/libs/dark.js"></script>
+            <script defer src="/src/libs/nav.js"></script>
+
             <!-- Decap CMS scripts -->
             {Astro.url.pathname === "/" &&
                 <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
