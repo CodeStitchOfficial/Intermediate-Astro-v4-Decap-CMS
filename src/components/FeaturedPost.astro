@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import { formatDate } from "@libs/utils.js";
 import "@styles/blog.less";
@@ -19,14 +18,13 @@ const featuredPosts = posts.filter((post) =>
       featuredPosts.map((post) => (
         <a class="blog-feature" href={post.slug}>
           <picture class="blog-featureImage">
-            {/* <img
-              src={`/${post.data.image}`}
+            <img
+              src={post.data.image}
               alt={post.data.imageAlt}
               width="60"
               height="60"
               decoding="async"
-            /> */}
-                <Image src={post.data.image} alt={post.data.imageAlt} />
+            />
           </picture>
           <div class="content-group">
             <h3 class="feature-h3">{post.data.title}</h3>

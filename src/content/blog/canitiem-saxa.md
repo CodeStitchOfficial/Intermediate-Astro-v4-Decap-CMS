@@ -6,7 +6,7 @@ date: 2023-06-08T15:28:08.486Z
 tags:
     - post
     - featured
-image: src/assets/images/blog/landing.webp
+image: /assets/images/blog/landing.jpg
 imageAlt: Kitchen
 ---
 
