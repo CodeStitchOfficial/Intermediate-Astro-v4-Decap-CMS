@@ -33,7 +33,12 @@ import navData from "@data/navData.json";
           {
             navData.map((entry) => (
               <li
-                class="cs-li">
+                class:list={[
+                  "cs-li",
+                  { "cs-dropdown": entry.children?.length > 0 },
+                ]}
+                tabindex={entry.children?.length > 0 ? "0" : ""}
+              >
                 <a
                   href={entry.url}
                   class:list={[
@@ -43,6 +48,17 @@ import navData from "@data/navData.json";
                 >
                   {entry.key}
                 </a>
+                {entry.children?.length > 0 && (
+                  <ul class="cs-drop-ul">
+                    {entry.children.map((child) => (
+                      <li class="cs-drop-li">
+                        <a href={child.url} class="cs-li-link cs-drop-link">
+                          {child.key}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))
           }
@@ -76,7 +92,8 @@ import navData from "@data/navData.json";
 </header>
 
 <style lang="less">
-  /*-- -------------------------- -->
+
+/*-- -------------------------- -->
 <---     Mobile Navigation      -->
 <--- -------------------------- -*/
 
@@ -371,6 +388,231 @@ import navData from "@data/navData.json";
   }
 }
 
+/*-- -------------------------- -->
+<---     Navigation Dropdown    -->
+<--- -------------------------- -*/
+
+/* Mobile - 1023px */
+@media only screen and (max-width: 63.9375rem) {
+  #cs-navigation {
+    .cs-dropdown {
+      color: var(--bodyTextColorWhite);
+      position: relative;
+
+      &.cs-active {
+        .cs-drop-ul {
+          height: auto;
+          margin: (12/16rem) 0 0 0;
+          padding: (24/16rem);
+          opacity: 1;
+          visibility: visible;
+          transform: scale(1);
+        }
+
+        .cs-drop-link {
+          opacity: 1;
+        }
+      }
+
+      .cs-li-link {
+        position: relative;
+        transition: opacity 0.3s;
+      }
+    }
+
+    .cs-drop-icon {
+      width: (15/16rem);
+      height: auto;
+      position: absolute;
+      top: 50%;
+      right: (-20/16rem);
+      transform: translateY(-50%);
+    }
+
+    .cs-drop-ul {
+      width: 100%;
+      height: 0;
+      margin: 0;
+      box-sizing: border-box;
+      padding: 0 (24/16rem) 0 (24/16rem);
+      background-color: var(--primary);
+      opacity: 0;
+      display: flex;
+      visibility: hidden;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-end;
+      gap: (12/16rem);
+      overflow: hidden;
+      transform: scale(0);
+      transition: padding 0.3s, margin 0.3s, height 0.3s, opacity 0.3s,
+        transform 0.3s, visibility 0.3s;
+      transform-origin: top right;
+    }
+
+    .cs-drop-li {
+      text-align: inherit;
+      list-style: none;
+    }
+
+    .cs-li-link {
+      &.cs-drop-link {
+        /* 14px - 16px */
+        font-size: clamp(0.875rem, 2vw, 1.25rem);
+        color: #fff;
+      }
+    }
+  }
+}
+
+/* Desktop - 1024px */
+@media only screen and (min-width: 64rem) {
+  #cs-navigation {
+    .cs-dropdown {
+      position: relative;
+      &:hover {
+        cursor: pointer;
+        .cs-drop-ul {
+          opacity: 1;
+          visibility: visible;
+          transform: scaleY(1);
+        }
+
+        .cs-drop-li {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    }
+
+    .cs-drop-icon {
+      width: (15/16rem);
+      height: auto;
+      display: inline-block;
+    }
+
+    .cs-drop-ul {
+      min-width: (200/16rem);
+      margin: 0;
+      padding: 0;
+      background-color: #fff;
+      box-shadow: rgba(149, 157, 165, 0.2) 0px 10px 16px;
+      opacity: 0;
+      border-bottom: 5px solid var(--primary);
+      visibility: hidden;
+      /* if you have 8 or more links in your dropdown nav, uncomment the columns property to make the list into 2 even columns. Change it to 3 or 4 if you need extra columns. Then remove the transition delays on the cs-drop-li so they don't have weird scattered animations */
+      // columns: 2;
+      position: absolute;
+      top: 100%;
+      z-index: -100;
+      overflow: hidden;
+      transform: scaleY(0);
+      transition: transform 0.3s, visibility 0.3s, opacity 0.3s;
+      transform-origin: top;
+    }
+
+    .cs-drop-li {
+      font-size: (16/16rem);
+      text-decoration: none;
+      list-style: none;
+      width: 100%;
+      height: auto;
+      color: var(--bodyTextColor);
+      opacity: 0;
+      display: block;
+      transform: translateY(-10/16rem);
+      transition: opacity 0.6s, transform 0.6s;
+
+      &:nth-of-type(1) {
+        transition-delay: 0.05s;
+      }
+      &:nth-of-type(2) {
+        transition-delay: 0.1s;
+      }
+      &:nth-of-type(3) {
+        transition-delay: 0.15s;
+      }
+      &:nth-of-type(4) {
+        transition-delay: 0.2s;
+      }
+      &:nth-of-type(5) {
+        transition-delay: 0.25s;
+      }
+      &:nth-of-type(6) {
+        transition-delay: 0.3s;
+      }
+      &:nth-of-type(7) {
+        transition-delay: 0.35s;
+      }
+      &:nth-of-type(8) {
+        transition-delay: 0.4s;
+      }
+      &:nth-of-type(9) {
+        transition-delay: 0.45s;
+      }
+      &:nth-of-type(10) {
+        transition-delay: 0.5s;
+      }
+      &:nth-of-type(11) {
+        transition-delay: 0.55s;
+      }
+      &:nth-of-type(12) {
+        transition-delay: 0.6s;
+      }
+      &:nth-of-type(13) {
+        transition-delay: 0.65s;
+      }
+    }
+
+    .cs-li-link {
+      &.cs-drop-link {
+        font-size: (16/16rem);
+        line-height: 1.5em;
+        text-decoration: none;
+        white-space: nowrap;
+        width: 100%;
+        /* prevents padding from affecting height and width */
+        box-sizing: border-box;
+        padding: (12/16rem);
+        color: var(--bodyTextColor);
+        display: block;
+        transition: color 0.3s, background-color 0.3s;
+
+        &:hover {
+          background-color: #f7f7f7;
+        }
+
+        &:before {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+/* Dark Mode */
+@media only screen and (min-width: 0rem) {
+  body.dark-mode {
+    #cs-navigation {
+      .cs-drop-ul {
+        background-color: var(--dark);
+      }
+
+      .cs-li-link {
+        &.cs-drop-link {
+          &:hover {
+            background-color: var(--medium);
+          }
+        }
+      }
+
+      .cs-drop-icon {
+        /* turns it white */
+        filter: grayscale(1) brightness(1000%);
+      }
+    }
+  }
+}
 
 /*-- -------------------------- -->
 <---     Desktop Navigation     -->

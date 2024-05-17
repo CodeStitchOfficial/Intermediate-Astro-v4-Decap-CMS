@@ -1,7 +1,7 @@
-  <h3 align="center">Beginner Astro v4 Starter Kit</h3>
+  <h3 align="center">Intermediate Astro v4 - Decap CMS</h3>
 
   <p align="center">
-    This beginner kit includes a pre-configured Astro setup, along with five pages filled with CodeStitch components. Everything is ready to go right from the start, offering a fantastic introduction to the advantages of a Static Site Generator, complete with LESS preprocessing. This kit also leverages the power of a few Astro tools such as, but not limited to, View Transitions, Astro components, scoped styling and scripting etc.
+    This beginner kit includes a pre-configured Astro setup, along with five pages filled with CodeStitch components. Everything is ready to go right from the start, offering a fantastic introduction to the advantages of a Static Site Generator, complete with LESS preprocessing and a blog powered by Decap CMS. This kit also leverages the power of a few Astro tools such as, but not limited to, View Transitions, Astro components, scoped styling and scripting etc.
     <br/>
     <br/>
     <a href="https://beginner-astro-kit.netlify.app/" target="_blank">View Live Result</a>
@@ -30,7 +30,7 @@
 ## Overview
 
 This beginner kit includes a pre-configured <a href="https://www.astro.build">Astro</a> environment, which
-allows for repeated components, centralized data and greater room to scale as your clients grow. The kit runs the latest major Astro version, v4.
+allows for repeated components, centralized data and greater room to scale as your clients grow. The kit runs the latest major Astro version, v4. On top of this, a blog has been provided through [Decap CMS](https://decapcms.org/) to allow your clients to manage their content on their own. This can easily be adapted to anything which requires changing content, such as menus, job listing boards, portfolios and much more.
 
 An example website has also been provided, with easy substitution of website sections possible through the use of <a href="https://codestitch.app/">CodeStitch's
 vanilla component library</a>. This kit aims to get any project off the ground in as little time as possible, with deployment being possible in as little as two
@@ -52,6 +52,9 @@ Only the vanilla web technologies are _required_ before using this kit, with som
 
 1. [Astro's Documentation](https://docs.astro.build/en/getting-started/)
 2. [Astro Crash Course in 20 Minutes!](https://www.youtube.com/watch?v=zrPVTf761OI)
+3. [Decap CMS' docs](https://decapcms.org/docs/intro/) can also be found should you wish to extend the CMS beyond what's in this kit
+
+
 
 <a name="features"></a>
 
@@ -66,7 +69,7 @@ This kit ships the following packages:
 * [Astro Icon](https://www.astroicon.dev/) - Astro Icon is a straightforward icon system for the Astro framework.
 * [Autoprefixer](https://www.npmjs.com/package/autoprefixer) - PostCSS plugin to parse CSS and add vendor prefixes to CSS rules using values from Can I Use. It is recommended by Google and used in Twitter and Alibaba.
 * [LESS](https://www.npmjs.com/package/less) - Less makes a few convenient additions to the CSS language, but you can also simply write standard CSS if you wish.
-
+* [decap-cms-app](https://decapcms.org) - Open source content management for your Git workflow. Use Decap CMS with any static site generator for a faster and more flexible web project
 <a name="fileStructure"></a>
 
 ## File Structure
@@ -86,16 +89,17 @@ This kit ships the following packages:
 |   ├── assets/
 |   |   └── images/
 |   ├── components/
+|   ├── content/
+|   |   └── blog/
 │   ├── _data/
 │   │   ├── client.json
 │   │   └── navData.json
-|   ├── js/
-|   |   └── util.js
-|   |   └── nav.js
-|   |   └── dark.js
 │   ├── layouts/
 │   │   └── BaseLayout.astro
+|   ├── libs/
+|   |   └── utils.js
 │   ├── pages/
+|   |   └── blog/
 |   └── styles/
 ├── .astro.config.mjs
 ├── .postcss.config.cjs
@@ -115,17 +119,19 @@ This kit ships the following packages:
 ### Source Files and Folders
 
 - data/ - Global data accessible across the project. Fill out client.json before you begin. Just import this data at the top of a file you want to include it.
-- assets/ - Non-HTML files. Images, scripts and styles.
+- assets/ - Non-HTML files. Images, scripts and styles. It is important to note that any assets you want optimized by Astro (such as assets use din <Picture /> components for example) must be placed in `src/...`
 - \_redirects - To configure redirects. Read more on <a href="https://docs.netlify.com/routing/redirects/">Netlify</a>
+- content/ - Data to render pages from, such as the blog.
 - index.astro - Home page
 - robots.txt - Instructions for site crawlers. Learn more, and generate your own, <a href="https://en.ryte.com/free-tools/robots-txt-generator/">here</a>
 - sitemap.xml - A map of the pages on the domain. Create your own after deployment <a href="https://www.xml-sitemaps.com/">here</a>
+- tsconfig.json - A utility file used here to declare shortcuts for easier imports.
 
 <a name="gettingStarted"></a>
 
 ## Getting Started
 
-1. At the top right of the <a href="https://github.com/ItsEthanH/intermediate-starter-less">GitHub Repository</a>, click the green _Use this template_ button,
+1. At the top right of the GitHub Repository, click the green _Use this template_ button,
    then click _Create a new repository_.
 2. Follow the instructions to create a new repository, using this repo as a template.
 3. When created, clone the repository to your local machine.
@@ -139,7 +145,7 @@ project's `<head>` and contact information will automatically be filled out, pro
 
 You can find all of CodeStitches `:root` variables, as well as .cs-topper, .cs-title and .cs-text, within the `root` stylesheet. Feel free to adjust these, or use our Content Flair micro-stitches, to update site-wide styles quickly.
 
-In the `components` folder live all your custom components in `.astro` formet. They take advantage of Astro's style-scoping. Any styles you write in `Header.astro` will not escape that file.
+In the `components` folder live all your custom components in `.astro` format. They take advantage of Astro's style-scoping. Any styles you write in `Header.astro` will not escape that file.
 
 <a name="expandingTheProject"></a>
 
@@ -204,7 +210,6 @@ Thanks to Astro Navigation, adding new pages is as simple as adding a file to sr
 <BaseLayout
   title="Page title for <title> and OG tags"
   description="Description for <meta> and OG tags"
-  preloadImg={import("/assets/images/imagename.format")}
 >
     <!-- Page HTML goes here, without a <main> wrapper -->
 </BaseLayout>
@@ -222,8 +227,8 @@ The header navigation in the project is powered by the `navData.json` file. Each
 To add subpages, include a `children` property. The `children` property should be an array that contains more page objects (i.e., object containing a `key` and `url` property.) If a page has a `children` array property is specified, a dropdown will be created, providing
 a Navigation + Dropdown Stitch is being used (see below). Navigations will render in order.
 
-> If you wish to use an alternative Navigation stitch, you are welcome to swap out the .cs-ul-wrapper div in the Stitch for the one in the Starter Kit. This
-> will allow you to continue to reap the benefits of eleventyNavigation. You can find the .cs-ul-wrapper div below
+> If you wish to use an alternative Navigation stitch, you are welcome to swap out the `.cs-ul-wrapper` div in the Stitch for the one used in this starter kit. This
+> will allow you to continue to reap the benefits of navigation vi navData.json. If you want to include dropdown menus in your navigation, you can use the `.cs-ul-wrapper` div below
 
 ```
 <div class="cs-ul-wrapper">

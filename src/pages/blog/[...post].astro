@@ -1,0 +1,81 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "src/layouts/BaseLayout.astro";
+import { formatDate } from "@libs/utils.js";
+import Landing from "@components/Landing.astro";
+import FeaturedPost from "@components/FeaturedPost.astro";
+import "@styles/blog.less";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts.map((entry) => ({
+    params: { post: entry.slug },
+    props: { post: entry },
+  }));
+}
+
+const { post } = Astro.props;
+const { title, date, description, image, imageAlt, author } = post.data;
+const { Content } = await post.render();
+---
+
+<BaseLayout {title} {description}>
+  <!-- ============================================ -->
+  <!--                    LANDING                   -->
+  <!-- ============================================ -->
+
+  <Landing 
+    title="Blog"
+  />
+
+  <!-- ============================================ -->
+  <!--              Main Blog Content               -->
+  <!-- ============================================ -->
+
+  <div class="blog-container main-content-wrapper">
+    <!--Main content -->
+    <div class="main-content">
+      <!-- ============================================ -->
+      <!--                  Blog Article                -->
+      <!-- ============================================ -->
+
+      <article class="blog-article">
+        <!--Main Article Image-->
+        <picture class="blog-mainImage">
+          <img
+            src={image}
+            alt={imageAlt}
+            width="795"
+            height="400"
+            decoding="async"
+          />
+        </picture>
+
+        <!--Article Info-->
+        <div class="article-group">
+          <h1 class="blog-h1">{title}</h1>
+          <div class="blog-authorGroup">
+            <!--Author Image-->
+            <picture class="blog-author-img">
+              <img
+                src="/assets/svgs/profile.svg"
+                alt="house"
+                width="32"
+                height="32"
+                decoding="async"
+              />
+            </picture>
+            <span class="blog-author">{author}</span>
+            <span aria-hidden="true" class="blog-dot"></span>
+            <!--Blog Date-->
+            <span class="blog-date">{formatDate(date)}</span>
+          </div>
+        </div>
+        <section id="blog-content">
+          <Content />
+        </section>
+      </article>
+    </div>
+    <FeaturedPost />
+  </div>
+</BaseLayout>

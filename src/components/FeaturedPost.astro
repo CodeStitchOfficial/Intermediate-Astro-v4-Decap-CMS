@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import { formatDate } from "@libs/utils.js";
+import "@styles/blog.less";
+
+const posts = await getCollection("blog");
+const featuredPosts = posts.filter((post) =>
+  post.data.tags.includes("featured")
+);
+---
+
+<!-- ============================================ --><!--                Featured Posts                --><!-- ============================================ -->
+<div class="blog-sidebar">
+  <!--Featured-->
+  <div class="blog-featured-group">
+    <span class="blog-header">Featured Posts</span>
+    {
+      featuredPosts.map((post) => (
+        <a class="blog-feature" href={post.slug}>
+          <picture class="blog-featureImage">
+            <img
+              src={post.data.image}
+              alt={post.data.imageAlt}
+              width="60"
+              height="60"
+              decoding="async"
+            />
+          </picture>
+          <div class="content-group">
+            <h3 class="feature-h3">{post.data.title}</h3>
+            <span class="feature-date">{formatDate(post.data.date)}</span>
+          </div>
+        </a>
+      ))
+    }
+  </div>
+</div>

@@ -1,0 +1,86 @@
+---
+import BaseLayout from "src/layouts/BaseLayout.astro";
+import CTA from "@components/CTA.astro";
+import { getCollection } from "astro:content";
+import { formatDate } from "@libs/utils.js";
+import Landing from "@components/Landing.astro";
+import FeaturedPost from "@components/FeaturedPost.astro";
+import "@styles/blog.less";
+
+const posts = await getCollection("blog");
+posts.sort(
+  (a, b) => new Date(b.data.date).valueOf() - new Date(a.data.date).valueOf()
+);
+---
+
+<BaseLayout
+  title="Blog"
+  description="Meta description for the page"
+  preloadImg="/assets/images/cabinets2.jpg"
+>
+  <!-- ============================================ -->
+  <!--                    LANDING                   -->
+  <!-- ============================================ -->
+
+    <!-- ============================================ -->
+  <!--                    LANDING                   -->
+  <!-- ============================================ -->
+
+  <Landing 
+    title="Blog"
+  />
+
+  <!-- ============================================ -->
+  <!--              Main Blog Content               -->
+  <!-- ============================================ -->
+
+  <div class="blog-container main-content-wrapper">
+    <!--Main content -->
+    <div class="main-content">
+      <!-- ============================================ -->
+      <!--                 Blog Articles                -->
+      <!-- ============================================ -->
+      {posts.length === 0 && <h1>No Recent Posts</h1>}
+      {
+        posts.length >= 1 &&
+          posts.map((post) => (
+            <article class="recent-articles">
+              <picture class="blog-mainImage">
+                <img
+                  src={post.data.image}
+                  alt={post.data.imageAlt}
+                  width="795"
+                  height="400"
+                  decoding="async"
+                />
+              </picture>
+
+              <div class="article-group">
+                <div class="blog-authorGroup">
+                  <picture class="blog-author-img">
+                    <img
+                      src="/assets/svgs/profile.svg"
+                      alt="house"
+                      width="32"
+                      height="32"
+                      decoding="async"
+                    />
+                  </picture>
+                  <span class="blog-author">{post.data.author}</span>
+                  <span aria-hidden="true" class="blog-dot" />
+                  <span class="blog-date">{formatDate(post.data.date)}</span>
+                </div>
+                <h2 class="blog-h1">{post.data.title}</h2>
+                <p class="blog-desc">{post.data.description}</p>
+                <a href={post.slug} class="blog-link">
+                  Continue Reading
+                </a>
+              </div>
+            </article>
+          ))
+      }
+    </div>
+    <FeaturedPost />
+  </div>
+  <CTA />
+</BaseLayout>

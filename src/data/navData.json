@@ -9,10 +9,24 @@
   },
   {
     "key": "Projects",
-    "url": "/projects/"
+    "url": "/projects/",
+    "children": [
+      {
+        "key": "Project 1",
+        "url": "/project-1/"
+      },
+      {
+        "key": "Project 2",
+        "url": "/project-2/"
+      }
+    ]
   },
   {
     "key": "Reviews",
     "url": "/reviews/"
+  },
+  {
+    "key": "Blog",
+    "url": "/blog/" 
   }
 ]
