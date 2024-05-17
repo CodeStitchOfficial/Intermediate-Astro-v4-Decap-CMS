@@ -1,4 +1,4 @@
-export const formatDate = (date) => {
+export function formatDate(date) {
   return new Date(date).toLocaleDateString("en-US", {
     timeZone: "UTC",
     month: "short",
@@ -6,3 +6,7 @@ export const formatDate = (date) => {
     year: "numeric",
   });
 };
+
+export function getCurrentYear() {
+  return new Date().getFullYear();
+}
