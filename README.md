@@ -64,6 +64,8 @@ Only the vanilla web technologies are _required_ before using this kit, with som
 * Astro's <ViewTransitions /> integration
 * Leveraging components, props and scoped styles, as demonstrated in `/src/components/Landing.astro` for example
 * Leveraging Astro's built-in components such as `<Picture />`, as demonstrated in `/src/components/Landing.astro` for example
+* Decap CMS integration with  blog ready-to-go- allows your client to write blog posts
+* Accessible dropdown menus on desktop navigation
 
 This kit ships the following packages:
 * [Astro Icon](https://www.astroicon.dev/) - Astro Icon is a straightforward icon system for the Astro framework.
@@ -81,6 +83,7 @@ This kit ships the following packages:
 |   |   |—— favicons/
 |   |   |—— fonts/
 |   |   |—— images/
+|   |   |—— js/
 |   |   └── svgs/
 |   |—— _redirects
 |   |—— robots.txt
@@ -112,6 +115,8 @@ This kit ships the following packages:
 ### Root Files and Folders
 
 - public/ - All assets you don't want optimized by Astro. Include fonts and favicons in here. The \_redirects, robots.txt, and sitemap.xml also live here.
+- public/admin/config.yml - This is where Decap CMS configuration options live. [More information about options in Decap docs](https://decapcms.org/docs/configuration-options/)
+- public/assets/images/blog - This is where the images uploaded on the CMS will be stored
 - src/ - Raw, source code. The folder you work in.
 - .astro.config.mjs - Astro config file, already set up for you.
 
@@ -329,8 +334,30 @@ This kit demonstrates the use of the built-in `<Picture />` component, [for whic
  * CodeStich blocks already have fully-functionning `<picture>` elements that perform very well. However, the developper will have to do a time-consumming job with resizing and reformatting assets.
  * Astro's `<Picture />` components must be manually written to replace stitches. On the other hand, they automatically process and optimize assets, which allows the developper to skip the resizing and reformatting preparation work.
 
-Not demonstrated in this kit, `<Image />` and `<Icon />` components may be used to further optimize your assets.
+Note: As it stands, it is not possible to use <Picture /> with assets accessed via the CMS.
 
+<a name="configuringTheCms"></a>
+
+### Configuring the CMS
+
+In `public/admin/`, you'll find a `config.yml` file which contains the configuration for the blog. While this project is set up to work with a blog out of the box, you are welcome to make changes using
+<a href="https://decapcms.org/docs/add-to-your-site/#configuration">Decap CMS'</a> documentation.
+
+Blog content lives in `/src/content/blog` in the form of markdown files, with a front matter similar to that of the pages. MDX files can also be used if you want to include JSX components. The title, description, and tags are defined in the frontmatter of the markdown. The permalink will be the same as the file name.
+
+When `npm start` is run, a proxy server for the CMS is spun up on `localhost:8081`. That can often mean you run into errors if `localhost:8080` is already
+taken, so look out for that. You can locally access the blog via navigating to the /admin path. All blog content can be easily created, updated and deleted via
+this admin panel, and is the very system that your clients can use to manage their website without your involvement. Everything on the blog should be fairly
+intuitive, but feel free to experiment with using this panel first. With this kit, you can add _featured_ to the comma-separated list of tags to have them show
+up as so in the frontend.
+
+> Note: With Astro v4+, a warning pops up when the dev server is launched:
+
+> `[WARN] The injected route "/admin" by netlify-cms specifies the entry point with the "entryPoint" property. This property is deprecated, please use "entrypoint" instead.`
+
+> I've tested and this works by simply replacing entryPoint with entrypoint [here - line 70 in `astro-netlify-cms/integration/index.ts`](https://github.com/delucis/astro-netlify-cms/blob/66d4f0f218b38618798ff9f4257ceee558dd45b4/integration/index.ts#L70):
+
+> [Follow the Issue on GitHub ](https://github.com/delucis/astro-netlify-cms/issues/86)
 <a name="deployment"></a>
 
 ## Deployment
@@ -338,6 +365,12 @@ Not demonstrated in this kit, `<Image />` and `<Icon />` components may be used 
 1. Ensure the sitemap, robots.txt and \_redirects have been filled out. Instructions and tools for how to do so can be found in the File Structure section
 2. Navigate to your Netlify Admin Panel, click _Add new site | Import an existing project_
 3. Follow the instructions to connect your GitHub repository to Netlify.
+4. Once deployed, click on Identity in the top navigation, then click Enable Identity
+5. Invite yourself, and the client, to the site
+6. While in the Identity tab, click the "Settings and usage" button to open the settings options. Then, do the following:
+    * Find "Registration Preferences", click "Edit Settings" and set registration from Public to Invite Only
+    * Find "Enable Providers" and add a provider. We recommend Google, so the client can login with Google in 1 click.
+    * Find "Git Gateway" and enable it
 
 <a name="Conclusion"></a>
 
