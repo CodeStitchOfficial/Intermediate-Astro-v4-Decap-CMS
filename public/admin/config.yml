@@ -1,8 +1,11 @@
 backend:
   name: git-gateway
   branch: main # Branch to update (optional; defaults to master)
-media_folder: "public/assets/images/blog" # Location where files will be stored in the repo
-public_folder: "/assets/images/blog" # The src attribute for uploaded media
+local_backend: true
+media_folder: src/assets/images/blog # Location where files will be stored in the repo
+public_folder: src/assets/images/blog  # The src attribute for uploaded media
+site_url: https://intermediate-astro-kit-decap-cms.netlify.app/ # Displays a link to home page in the top-right corner of the CMS dashboard
+
 collections:
   - name: "blog" # Used in routes, e.g., /admin/collections/blog
     label: "Blog" # Used in the UI
