@@ -62,16 +62,17 @@ Only the vanilla web technologies are _required_ before using this kit, with som
 
 * Runs on Astro v4
 * Astro's <ViewTransitions /> integration
-* Leveraging components, props and scoped styles, as demonstrated in `/src/components/Landing.astro` for example
-* Leveraging Astro's built-in components such as `<Picture />`, as demonstrated in `/src/components/Landing.astro` for example
+* Use of components, props and scoped styles, as demonstrated in `/src/components/Landing.astro` for example
+* Use of Astro's built-in components such as `<Picture />`, as demonstrated in `/src/components/Landing.astro` for example
 * Decap CMS integration with  blog ready-to-go- allows your client to write blog posts
-* Accessible dropdown menus on desktop navigation
+* Astro content collections, leveraging image validation. This allows the use of Astro components on user-uploaded images via the CMS. Hello .webp and .avif!
+* Accessible dropdown menus on desktop navigation and nested pages
 
 This kit ships the following packages:
 * [Astro Icon](https://www.astroicon.dev/) - Astro Icon is a straightforward icon system for the Astro framework.
 * [Autoprefixer](https://www.npmjs.com/package/autoprefixer) - PostCSS plugin to parse CSS and add vendor prefixes to CSS rules using values from Can I Use. It is recommended by Google and used in Twitter and Alibaba.
 * [LESS](https://www.npmjs.com/package/less) - Less makes a few convenient additions to the CSS language, but you can also simply write standard CSS if you wish.
-* [decap-cms-app](https://decapcms.org) - Open source content management for your Git workflow. Use Decap CMS with any static site generator for a faster and more flexible web project
+* [Concurrently](https://www.npmjs.com/package/concurrently) - Used to run npm commands concurrently. In our case, we use it to spin up the local dev environment on localhost:4321 and Decap local server on localhost:8081
 <a name="fileStructure"></a>
 
 ## File Structure
@@ -90,7 +91,8 @@ This kit ships the following packages:
 |   └── sitemap.html
 ├── src/
 |   ├── assets/
-|   |   └── images/
+|   |   |—— images/
+|   |   |   ── blog/
 |   ├── components/
 |   ├── content/
 |   |   └── blog/
@@ -119,6 +121,7 @@ This kit ships the following packages:
 - public/assets/images/blog - This is where the images uploaded on the CMS will be stored
 - src/ - Raw, source code. The folder you work in.
 - .astro.config.mjs - Astro config file, already set up for you.
+
 
 <a name="sourceFilesAndFolders"></a>
 
@@ -157,8 +160,7 @@ In the `components` folder live all your custom components in `.astro` format. T
 
 ## Expanding the Project
 
-Aimed towards freelancers, this kit was made with scalability and flexibility in mind, suiting a range of websites and client needs. As such, it is your choice
-whether you'd rather make small tweaks to the existing site, or clear all the page content and build a site all over again. Outlined below are some best
+Aimed towards freelancers, this kit was made with scalability and flexibility in mind, suiting a range of websites and client needs. As such, it is your choice whether you'd rather make small tweaks to the existing site, or clear all the page content and build a site all over again. Outlined below are some best
 practices for when it comes to building on top of this kit:
 
 <a name="reusingCode"></a>
@@ -224,7 +226,7 @@ Thanks to Astro Navigation, adding new pages is as simple as adding a file to sr
 Starting from the top, you can see some data enclosed in --- tags. This is known as the page's front matter, which provides additional data to when it comes to
 rendering your pages.
 
-To add sub-pages, you will forst need to create a new folder under `src/pages/` and populate it with `.astro` pages. Look at the `src/pages/projects` forlder for an example. Don't forget to edit `navData.json` to handle the navigation.
+To add sub-pages, you will first need to create a new folder under `src/pages/` and populate it with `.astro` pages. Look at the `src/pages/projects` forlder for an example. Don't forget to edit `navData.json` to handle the navigation. The navigation bar is already set up to create drop-down menus.
 
 <a name="navigationViaFrontMatter"></a>
 
