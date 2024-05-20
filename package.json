@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "concurrently \"decap-server\" \"astro dev\"",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -14,6 +14,10 @@
     "astro-icon": "^1.1.0",
     "autoprefixer": "^10.4.19",
     "decap-cms-app": "^3.1.10",
+    "decap-server": "^3.0.4",
     "less": "^4.2.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
   }
 }
