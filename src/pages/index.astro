@@ -37,22 +37,24 @@ allows for repeated components, centralized data and greater room to scale as yo
     </div>
 
     <!-- Background Image -->
+    <!-- We can't use Astro <Picture /> as it does not support multiple -->
     <picture class="cs-picture">
       <source
         media="(max-width: 600px)"
-        srcset="/assets/images/landing-m.webp"
+        srcset="/assets/images/hero-m.webp"
       />
-      <source media="(min-width: 601px)" srcset="/assets/images/landing.jpg" />
+      <source media="(min-width: 601px)" srcset="/assets/images/hero.jpg" />
       <img
         aria-hidden="true"
         decoding="async"
-        src="/assets/images/landing.jpg"
+        src="/assets/images/hero.jpg"
         alt="new home"
         width="2500"
         height="1667"
         loading="eager"
       />
     </picture>
+
   </section>
 
   <!-- ============================================ -->
@@ -784,7 +786,7 @@ allows for repeated components, centralized data and greater room to scale as yo
   /* Desktop Parallax Effect - 1300px */
   @media only screen and (min-width: 81.25em) {
     #hero {
-      background: url("/assets/images/landing.jpg");
+      background: url("/assets/images/hero.jpg");
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
