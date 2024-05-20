@@ -23,39 +23,33 @@ document.addEventListener('astro:page-load', () => { // Make the script controll
         };
     };
 
-    // Toggles drop down menus
-    const dropDowns = Array.from(document.querySelectorAll('#cs-navigation .cs-dropdown'));
-    for (const item of dropDowns) {
-        item.addEventListener('click', function() {
-            item.classList.toggle('cs-active');
-        });
-    };
-
     ///// Handling keyboard navigation dropdown menus on desktop /////
     const dropdownElements = document.querySelectorAll(".cs-dropdown");
     dropdownElements.forEach(element => {
         
         element.addEventListener("keydown", function(event) {
-            // Makes dropdown menus appear upon hitting "Enter"
-            if (event.key === "Enter") {
+            // Makes dropdown menus appear upon hitting "Enter" or "Spacebar"
+            if (event.key === "Enter" || event.key === " ") {
                 element.classList.toggle("cs-active");
-                console.log(element.querySelectorAll("li")[0])
-                element.querySelectorAll("li")[1].focus()
-                event.preventDefault(); // Prevent default behavior of Enter key
+                ariaExpanded(element)
+                event.preventDefault() // prevents default behavior of keys (moving down the page for "space")
             };
 
             // Makes dropdown menus disappear upon hitting "Esc"
             if (event.key === 'Escape') {
                 element.classList.remove("cs-active");
+                element.focus(); // Set focus back to the element
+                ariaExpanded(element)
             };
         });
 
-          // Makes dropdown menus disappear upon tabbing out of the menu
+        // Makes dropdown menus disappear upon tabbing out of the menu
         element.addEventListener("focusout", function(event) {
             // Check if the new focused element is outside of the current .cs-dropdown
             const relatedTarget = event.relatedTarget;
             if (!element.contains(relatedTarget)) {
                 element.classList.remove("cs-active");
+                ariaExpanded(element)
             };
         });
     });
@@ -68,5 +62,5 @@ document.addEventListener('astro:page-load', () => { // Make the script controll
                 window.location.href = this.href;
             } 
         });
-    });    
+    });
 });
