@@ -31,7 +31,7 @@ import { Icon } from 'astro-icon/components';
       <!-- We need a wrapper div so we can set a fixed height on the cs-ul in case the nav list gets too long from too many dropdowns being opened and needs to have an overflow scroll. This wrapper acts as the background so it can go the full height of the screen and not cut off any overflowing nav items while the cs-ul stops short of the bottom of the screen, which keeps all nav items in view no matter how mnay there are-->
       <!-- This also allows for easy substitution of CodeStitch navigations. Just replace the .cs-ul-wrapper in the new navigation with this one -->
       <div class="cs-ul-wrapper">
-        <ul id="cs-expanded-ul" class="cs-ul" aria-expanded="false">
+        <!-- <ul id="cs-expanded-ul" class="cs-ul"> 
           {
             navData.map((entry) => (
               <li
@@ -65,6 +65,60 @@ import { Icon } from 'astro-icon/components';
               </li>
             ))
           }
+        </ul> -->
+
+        <ul id="cs-expanded-ul" class="cs-ul">
+          {navData.map((entry) => (
+            <li
+              class:list={[
+                "cs-li",
+                { "cs-dropdown": entry.children?.length > 0 },
+              ]}
+              tabindex={entry.children?.length > 0 ? "0" : undefined}
+              aria-expanded={entry.children?.length > 0 ? "false" : undefined}
+              aria-controls={entry.children?.length > 0 ? `submenu-${entry.key}` : undefined}
+
+            >
+              {entry.children?.length > 0 ? (
+                <a
+                  href={entry.url}
+                  class:list={[
+                    "cs-li-link",
+                    { "cs-active": Astro.url.pathname === entry.url },
+                  ]}
+                >
+                  {entry.key}
+                  <Icon name="mdi--caret" class="cs-drop-icon" />
+                </a>
+              ) : (
+                <a
+                  href={entry.url}
+                  class:list={[
+                    "cs-li-link",
+                    { "cs-active": Astro.url.pathname === entry.url },
+                  ]}
+                  aria-current={Astro.url.pathname === entry.url ? "page" : undefined}
+                >
+                  {entry.key}
+                </a>
+              )}
+              {entry.children?.length > 0 && (
+                <ul id={`submenu-${entry.key}`} class="cs-drop-ul">
+                  {entry.children.map((child) => (
+                    <li class="cs-drop-li">
+                      <a 
+                        href={child.url} 
+                        class="cs-li-link cs-drop-link"
+                        aria-current={Astro.url.pathname === child.url ? "page" : undefined}
+                      >
+                        {child.key}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
