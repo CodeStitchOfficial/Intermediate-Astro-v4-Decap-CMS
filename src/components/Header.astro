@@ -20,7 +20,7 @@ import { Icon } from 'astro-icon/components';
     <!--Navigation List-->
     <nav class="cs-nav" role="navigation">
       <!--Mobile Nav Toggle-->
-      <button class="cs-toggle" id="mobile-menu-toggle" aria-expanded="false"  aria-controls="cs-expanded-ul" aria-label="mobile menu toggle">
+      <button class="cs-toggle" id="mobile-menu-toggle" aria-expanded="false"  aria-controls="cs-expanded-ul" title="mobile menu toggle">
         <div class="cs-box" aria-hidden="true">
           <span class="cs-line cs-line1" aria-hidden="true"></span>
           <span class="cs-line cs-line2" aria-hidden="true"></span>
@@ -44,7 +44,7 @@ import { Icon } from 'astro-icon/components';
                 <button
                 aria-expanded="false"
                 aria-controls={`submenu-${entry.key}`}
-                aria-label="dropdown-label"
+                title="dropdown-button"
                   class:list={[
                     "cs-li-link cs-dropdown-button",
                     { "cs-active": Astro.url.pathname.includes(entry.url)},
@@ -91,7 +91,7 @@ import { Icon } from 'astro-icon/components';
     </nav>
     <a href="/contact" class="cs-button-solid cs-nav-button">Contact Us</a>
     <!--Dark Mode toggle, uncomment button code if you want to enable a dark mode toggle-->
-    <button id="dark-mode-toggle" aria-label="dark mode toggle">
+    <button id="dark-mode-toggle" title="dark mode toggle">
       <svg
         class="cs-moon"
         xmlns="http://www.w3.org/2000/svg"
