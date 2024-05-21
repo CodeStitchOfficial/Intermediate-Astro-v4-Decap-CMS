@@ -12,7 +12,7 @@ document.addEventListener('astro:page-load', () => { // Make the script controll
         CSbody.classList.toggle('cs-open');
         ariaExpanded(mobileMenuToggle);
     });
-   
+  
     // Checks the value of aria expanded on an element and changes it accordingly whether it is expanded or not
     function ariaExpanded(element) {
         const isExpanded = element.getAttribute('aria-expanded');
@@ -23,15 +23,18 @@ document.addEventListener('astro:page-load', () => { // Make the script controll
         };
     };
 
-    ///// Handling keyboard navigation dropdown menus on desktop /////
+    ///// Handling dropdown menus on desktop (keyboard navigation) and mobile (clicks)/////
     const dropdownElements = document.querySelectorAll(".cs-dropdown");
     dropdownElements.forEach(element => {
         
         element.addEventListener("keydown", function(event) {
+            const dropdownButton = element.querySelector(".cs-dropdown-button");
             // Makes dropdown menus appear upon hitting "Enter" or "Spacebar"
             if (event.key === "Enter" || event.key === " ") {
                 element.classList.toggle("cs-active");
-                ariaExpanded(element)
+                if (dropdownButton) {
+                    ariaExpanded(dropdownButton);
+                }
                 event.preventDefault() // prevents default behavior of keys (moving down the page for "space")
             };
 
@@ -39,19 +42,36 @@ document.addEventListener('astro:page-load', () => { // Make the script controll
             if (event.key === 'Escape') {
                 element.classList.remove("cs-active");
                 element.focus(); // Set focus back to the element
-                ariaExpanded(element)
+                if (dropdownButton) {
+                    ariaExpanded(dropdownButton);
+                }
             };
         });
 
         // Makes dropdown menus disappear upon tabbing out of the menu
         element.addEventListener("focusout", function(event) {
-            // Check if the new focused element is outside of the current .cs-dropdown
+            // Checks if the new focused element is outside of the current .cs-dropdown
             const relatedTarget = event.relatedTarget;
             if (!element.contains(relatedTarget)) {
                 element.classList.remove("cs-active");
-                ariaExpanded(element)
+                const dropdownButton = element.querySelector(".cs-dropdown-button");
+                if (dropdownButton) {
+                    ariaExpanded(dropdownButton);
+                }
             };
         });
+
+        // Handles dropdown menus on mobile - matching media query (max-width: 63.9375rem) so clicks and hover don't interfere with each other on desktop
+        const maxWidthMediaQuery = window.matchMedia("(max-width: 63.9375rem)");
+        if (maxWidthMediaQuery.matches) {
+            element.addEventListener("click", () => {
+                element.classList.toggle("cs-active")
+                const dropdownButton = element.querySelector(".cs-dropdown-button");
+                    if (dropdownButton) {
+                        ariaExpanded(dropdownButton);
+                    }
+            });
+        };
     });
 
     // Redirect to the href when Enter is pressed
