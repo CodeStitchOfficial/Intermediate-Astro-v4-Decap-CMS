@@ -1,7 +1,6 @@
 ---
 import navData from "@data/navData.json";
 import { Icon } from 'astro-icon/components';
-
 ---
 
 <!-- ============================================ --><!--                 Navigation                   --><!-- ============================================ -->
@@ -31,42 +30,6 @@ import { Icon } from 'astro-icon/components';
       <!-- We need a wrapper div so we can set a fixed height on the cs-ul in case the nav list gets too long from too many dropdowns being opened and needs to have an overflow scroll. This wrapper acts as the background so it can go the full height of the screen and not cut off any overflowing nav items while the cs-ul stops short of the bottom of the screen, which keeps all nav items in view no matter how mnay there are-->
       <!-- This also allows for easy substitution of CodeStitch navigations. Just replace the .cs-ul-wrapper in the new navigation with this one -->
       <div class="cs-ul-wrapper">
-        <!-- <ul id="cs-expanded-ul" class="cs-ul"> 
-          {
-            navData.map((entry) => (
-              <li
-                class:list={[
-                  "cs-li",
-                  { "cs-dropdown": entry.children?.length > 0 },
-                ]}
-                tabindex={entry.children?.length > 0 ? "0" : ""}
-              >
-                <a
-                  href={entry.url}
-                  class:list={[
-                    "cs-li-link",
-                    { "cs-active": Astro.url.pathname === entry.url },
-                  ]}
-                >
-                  {entry.key}
-                </a>
-                {entry.children?.length > 0 && (<Icon name="mdi--caret" class="cs-drop-icon"/>)}
-                {entry.children?.length > 0 && (
-                  <ul class="cs-drop-ul" aria-expanded="false">
-                    {entry.children.map((child) => (
-                      <li class="cs-drop-li">
-                        <a href={child.url} class="cs-li-link cs-drop-link">
-                          {child.key}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            ))
-          }
-        </ul> -->
-
         <ul id="cs-expanded-ul" class="cs-ul">
           {navData.map((entry) => (
             <li
@@ -74,23 +37,24 @@ import { Icon } from 'astro-icon/components';
                 "cs-li",
                 { "cs-dropdown": entry.children?.length > 0 },
               ]}
-              tabindex={entry.children?.length > 0 ? "0" : undefined}
-              aria-expanded={entry.children?.length > 0 ? "false" : undefined}
-              aria-controls={entry.children?.length > 0 ? `submenu-${entry.key}` : undefined}
-
+              
             >
               {entry.children?.length > 0 ? (
-                <a
-                  href={entry.url}
+                // If entry has children in navData.json, create a button and a dropdown icon
+                <button
+                aria-expanded="false"
+                aria-controls={`submenu-${entry.key}`}
+                aria-label="dropdown-label"
                   class:list={[
-                    "cs-li-link",
-                    { "cs-active": Astro.url.pathname === entry.url },
+                    "cs-li-link cs-dropdown-button",
+                    { "cs-active": Astro.url.pathname.includes(entry.url)},
                   ]}
                 >
                   {entry.key}
                   <Icon name="mdi--caret" class="cs-drop-icon" />
-                </a>
+                </button>
               ) : (
+                // If entry does not have children in navData.json, create an anchor
                 <a
                   href={entry.url}
                   class:list={[
@@ -102,7 +66,9 @@ import { Icon } from 'astro-icon/components';
                   {entry.key}
                 </a>
               )}
+              
               {entry.children?.length > 0 && (
+                // If entry has children in navData.json, create a drop down menu
                 <ul id={`submenu-${entry.key}`} class="cs-drop-ul">
                   {entry.children.map((child) => (
                     <li class="cs-drop-li">
@@ -110,6 +76,7 @@ import { Icon } from 'astro-icon/components';
                         href={child.url} 
                         class="cs-li-link cs-drop-link"
                         aria-current={Astro.url.pathname === child.url ? "page" : undefined}
+                        aria-label={child.key}
                       >
                         {child.key}
                       </a>
@@ -525,6 +492,12 @@ import { Icon } from 'astro-icon/components';
         color: #fff;
       }
     }
+
+    .cs-dropdown-button {
+      background-color: transparent;
+      border: none;
+      appearance: none;
+    }
   }
 }
 
@@ -662,7 +635,6 @@ import { Icon } from 'astro-icon/components';
         }
 
         &:focus-within {
-          // background-color: #f7f7f7;
           outline: 2px solid currentColor;
           outline-offset: -2px;
         }
@@ -671,6 +643,12 @@ import { Icon } from 'astro-icon/components';
           display: none;
         }
       }
+    }
+
+    .cs-dropdown-button {
+      background-color: transparent;
+      border: none;
+      appearance: none;
     }
   }
 }
