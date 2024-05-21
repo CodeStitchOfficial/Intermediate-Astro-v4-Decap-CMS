@@ -1,14 +1,17 @@
 [
   {
     "key": "Home",
-    "url": "/"
+    "url": "/",
+    "children": []
   },
   {
     "key": "About Us",
-    "url": "/about/"
+    "url": "/about/",
+    "children": []
   },
   {
     "key": "Projects",
+    "url": "/projects/",
     "children": [
       {
         "key": "Project 1",
@@ -22,10 +25,12 @@
   },
   {
     "key": "Reviews",
-    "url": "/reviews/"
+    "url": "/reviews/",
+    "children": []
   },
   {
     "key": "Blog",
-    "url": "/blog/" 
+    "url": "/blog/",
+    "children": []     
   }
 ]
