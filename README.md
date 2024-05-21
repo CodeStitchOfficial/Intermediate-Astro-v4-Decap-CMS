@@ -145,7 +145,7 @@ This kit ships the following packages:
 2. Follow the instructions to create a new repository, using this repo as a template.
 3. When created, clone the repository to your local machine.
 4. Run `npm install` to install all dependencies.
-5. Run `npm run dev` to start the project and spin up a development server on `localhost:4321`.
+5. Run `npm run dev` to start the project and spin up a development server on `localhost:4321` and a Decap admin server on `localhost:8081`.
 
 Running `npm run dev` will start a development server and begin LESS preprocessing.
 
@@ -234,53 +234,78 @@ To add sub-pages, you will first need to create a new folder under `src/pages/` 
 
 The header navigation in the project is powered by the `navData.json` file. Each page in the navigation should be included as an item with a `key` property (page title to be displayed) and a `url` property (include a trailing slash). 
 
-To add subpages, include a `children` property. The `children` property should be an array that contains more page objects (i.e., object containing a `key` and `url` property.) If a page has a `children` array property is specified, a dropdown will be created, providing a Navigation + Dropdown Stitch is being used (see below). Navigations will render in order.
+To add subpages, populate the `children` array with page objects (i.e., object containing a `key` and `url` property.) If a page has a populated `children` array, a dropdown will be created, provided that a Navigation + Dropdown Stitch is being used (see below). Navigation links will render in the order they're declared.
 
-> If you wish to use an alternative Navigation stitch, you are welcome to swap out the `.cs-ul-wrapper` div in the Stitch for the one used in this starter kit. This
-> will allow you to continue to reap the benefits of navigation vi navData.json. If you want to include dropdown menus in your navigation, you can use the `.cs-ul-wrapper` div below
+If you wish to use an alternative Navigation stitch, you are welcome to swap out the `.cs-ul-wrapper` div in the Stitch for the one used in this starter kit. 
+This will allow you to continue to reap the benefits of navigation vi navData.json. If you want to include dropdown menus in your navigation, you can use the `.cs-ul-wrapper` div below
 
-```
+> Note: we have customised this navigation wrapper to include better accessibility features, which you will not find in navigation stitches.
+
+``` JSX
 <div class="cs-ul-wrapper">
-  <ul id="cs-expanded" class="cs-ul" aria-expanded="false">
-    {
-      navData.map((entry) => (
-        <li
-          class:list={[
-            "cs-li",
-            { "cs-dropdown": entry.children?.length > 0 },
-          ]}
-          tabindex={entry.children?.length > 0 ? "0" : ""}
-        >
+  <ul id="cs-expanded-ul" class="cs-ul">
+    {navData.map((entry) => (
+      <li
+        class:list={[
+          "cs-li",
+          { "cs-dropdown": entry.children?.length > 0 },
+        ]}
+        
+      >
+        {entry.children?.length > 0 ? (
+          // If entry has children in navData.json, create a button and a dropdown icon
+          <button
+          aria-expanded="false"
+          aria-controls={`submenu-${entry.key}`}
+          aria-label="dropdown-label"
+            class:list={[
+              "cs-li-link cs-dropdown-button",
+              { "cs-active": Astro.url.pathname.includes(entry.url)},
+            ]}
+          >
+            {entry.key}
+            <Icon name="mdi--caret" class="cs-drop-icon" />
+          </button>
+        ) : (
+          // If entry does not have children in navData.json, create an anchor
           <a
             href={entry.url}
             class:list={[
               "cs-li-link",
               { "cs-active": Astro.url.pathname === entry.url },
             ]}
+            aria-current={Astro.url.pathname === entry.url ? "page" : undefined}
           >
             {entry.key}
           </a>
-          {entry.children?.length > 0 && (
-            <ul class="cs-drop-ul">
-              {entry.children.map((child) => (
-                <li class="cs-drop-li">
-                  <a href={child.url} class="cs-li-link cs-drop-link">
-                    {child.key}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-        </li>
-      ))
-    }
+        )}
+        
+        {entry.children?.length > 0 && (
+          // If entry has children in navData.json, create a drop down menu
+          <ul id={`submenu-${entry.key}`} class="cs-drop-ul">
+            {entry.children.map((child) => (
+              <li class="cs-drop-li">
+                <a 
+                  href={child.url} 
+                  class="cs-li-link cs-drop-link"
+                  aria-current={Astro.url.pathname === child.url ? "page" : undefined}
+                  aria-label={child.key}
+                >
+                  {child.key}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </li>
+    ))}
   </ul>
 </div>
 ```
 
 > Should you wish to use your own method of rendering the navigation, you can still take advantage of applying the "active" class styles by using a smaller amount of code within the class attribute of the link:
 
-```
+```JSX
 <li class="cs-li">
   <a href="/about" class:list={["cs-li-link, {"cs-active": "/about/" === Astro.url.pathname }]}>About</a>
 </li>
@@ -289,7 +314,7 @@ To add subpages, include a `children` property. The `children` property should b
 > In this case, if the page slug is "about", the .cs-active class will be applied. You're welcome to adjust the page slug value to whatever you require ("blog", "/", "services", etc)
 > For dropdowns, you can use a similar philosophy on the parent dropdown's class attribute, checking to see if any of the child pages are active before applying the styles. An example of this is shown below:
 
-```
+```JSX
 <li class="nav-link cs-li cs-dropdown">
   <span class:list={["cs-li-link nav-link",
     { 'cs-active': '/annapolis-custom-closets/' === Astro.url.pathname },
@@ -321,7 +346,7 @@ To add subpages, include a `children` property. The `children` property should b
 
 Below the front matter is the page content. Any code that should be sent to a layout should be enclosed in the layout's component:
 
-```
+```JSX
 <BaseLayout>
   <!-- Your html/jsx code here -->
 </BaseLayout>
@@ -347,19 +372,14 @@ In `public/admin/`, you'll find a `config.yml` file which contains the configura
 
 Blog content lives in `/src/content/blog` in the form of markdown files, with a front matter similar to that of the pages. MDX files can also be used if you want to include JSX components. The title, description, and tags are defined in the frontmatter of the markdown. The permalink will be the same as the file name.
 
+Files uploaded through the dashboard's media library will be stored in `src/assets/images/blog` so that they can be accessed and optimised by Astro components if you wish.
+
 When `npm start` is run, a proxy server for the CMS is spun up on `localhost:8081`. That can often mean you run into errors if `localhost:8080` is already
 taken, so look out for that. You can locally access the blog via navigating to the /admin path. All blog content can be easily created, updated and deleted via
 this admin panel, and is the very system that your clients can use to manage their website without your involvement. Everything on the blog should be fairly
 intuitive, but feel free to experiment with using this panel first. With this kit, you can add _featured_ to the comma-separated list of tags to have them show
 up as so in the frontend.
 
-> Note: With Astro v4+, a warning pops up when the dev server is launched:
-
-> `[WARN] The injected route "/admin" by netlify-cms specifies the entry point with the "entryPoint" property. This property is deprecated, please use "entrypoint" instead.`
-
-> I've tested and this works by simply replacing entryPoint with entrypoint [here - line 70 in `astro-netlify-cms/integration/index.ts`](https://github.com/delucis/astro-netlify-cms/blob/66d4f0f218b38618798ff9f4257ceee558dd45b4/integration/index.ts#L70):
-
-> [Follow the Issue on GitHub ](https://github.com/delucis/astro-netlify-cms/issues/86)
 <a name="deployment"></a>
 
 ## Deployment
