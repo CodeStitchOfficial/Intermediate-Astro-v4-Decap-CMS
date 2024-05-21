@@ -67,6 +67,9 @@ Only the vanilla web technologies are _required_ before using this kit, with som
 * Decap CMS integration with  blog ready-to-go- allows your client to write blog posts
 * Astro content collections, leveraging image validation. This allows the use of Astro components on user-uploaded images via the CMS. Hello .webp and .avif!
 * Accessible dropdown menus on desktop navigation and nested pages
+* Perfect Lighthouse scores
+  
+![Lighthouse perfect score](https://github.com/BuckyBuck135/Intermediate-Astro-v4-Decap-CMS/blob/main/public/assets/lighthouse/100-score.png)
 
 This kit ships the following packages:
 * [Astro Icon](https://www.astroicon.dev/) - Astro Icon is a straightforward icon system for the Astro framework.
