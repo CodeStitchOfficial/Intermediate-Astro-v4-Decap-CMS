@@ -22,6 +22,8 @@
   - [Adding More Pages](#addingMorePages)
   - [Navigation via Front Matter](#navigationViaFrontMatter)
   - [Built-in Astro components](#builtinastrocomponents)
+  - [Configuring the CMS](#configuringTheCms)
+  - [Astro Content Collections](#AstroContentCollections)
 - [Deployment](#deployment)
 - [Conclusion](#conclusion)
 
@@ -61,7 +63,7 @@ Only the vanilla web technologies are _required_ before using this kit, with som
 ## Features
 
 * Runs on Astro v4
-* Astro's <ViewTransitions /> integration
+* Astro's `<ViewTransitions />` integration
 * Use of components, props and scoped styles, as demonstrated in `/src/components/Landing.astro` for example
 * Use of Astro's built-in components such as `<Picture />`, as demonstrated in `/src/components/Landing.astro` for example
 * Decap CMS integration with  blog ready-to-go- allows your client to write blog posts
@@ -95,6 +97,7 @@ This kit ships the following packages:
 |   |   |   ── blog/
 |   ├── components/
 |   ├── content/
+|   |   |—— config.ts
 |   |   └── blog/
 │   ├── _data/
 │   │   ├── client.json
@@ -210,7 +213,7 @@ const { title } = Astro.props // Destructure the incoming props. Note the `Astro
 
 Thanks to Astro Navigation, adding new pages is as simple as adding a file to src/pages/ and including it in the `data/navData.json` file:
 
-```
+```JSX
 ---
 // optional JavaScript frontmatter
 ---
@@ -361,7 +364,6 @@ This kit demonstrates the use of the built-in `<Picture />` component, [for whic
  * CodeStich blocks already have fully-functionning `<picture>` elements that perform very well. However, the developper will have to do a time-consumming job with resizing and reformatting assets.
  * Astro's `<Picture />` components must be manually written to replace stitches. On the other hand, they automatically process and optimize assets, which allows the developper to skip the resizing and reformatting preparation work.
 
-Note: As it stands, it is not possible to use <Picture /> with assets accessed via the CMS.
 
 <a name="configuringTheCms"></a>
 
@@ -374,11 +376,24 @@ Blog content lives in `/src/content/blog` in the form of markdown files, with a 
 
 Files uploaded through the dashboard's media library will be stored in `src/assets/images/blog` so that they can be accessed and optimised by Astro components if you wish.
 
-When `npm start` is run, a proxy server for the CMS is spun up on `localhost:8081`. That can often mean you run into errors if `localhost:8080` is already
-taken, so look out for that. You can locally access the blog via navigating to the /admin path. All blog content can be easily created, updated and deleted via
-this admin panel, and is the very system that your clients can use to manage their website without your involvement. Everything on the blog should be fairly
-intuitive, but feel free to experiment with using this panel first. With this kit, you can add _featured_ to the comma-separated list of tags to have them show
-up as so in the frontend.
+When `npm start` is run, a proxy server for the CMS is spun up on `localhost:8081`. That can often mean you run into errors if `localhost:8080` is already taken, so look out for that. You can locally access the blog via navigating to the /admin path. All blog content can be easily created, updated and deleted via this admin panel, and is the very system that your clients can use to manage their website without your involvement. 
+
+Everything on the blog should be fairly intuitive, but feel free to experiment with using this panel first. With this kit, you can add _featured_ to the comma-separated list of tags to have them show up as so in the frontend.
+
+<a name="astroContentCollections"></a>
+
+### Astro content collections
+
+In `/src/content`, you will see a `config.ts` file. This is where you can configure [Astro Content Collections](https://docs.astro.build/en/guides/content-collections/). This step is **not necessary** to run the blog with Decap CMS, but it will supercharge your Astro pages and content. Collections help to 
+  * organize your documents, 
+  * validate your frontmatter, 
+  * provide automatic TypeScript type-safety for all of your content,
+  * use Astro's `<Image />` and `<Picture />` components with user-uplaoded images via the CMS. 
+
+This template already has Content Collections configured for immediate use of the blog content, but you could use them to power up the Portfolio or Gallery for example.
+
+Content Collections can also be used on content that is not created via the CMS.
+
 
 <a name="deployment"></a>
 
