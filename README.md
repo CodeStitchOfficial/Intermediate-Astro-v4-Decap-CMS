@@ -66,8 +66,8 @@ Only the vanilla web technologies are _required_ before using this kit, with som
 * Astro's `<ViewTransitions />` integration
 * Use of components, props and scoped styles, as demonstrated in `/src/components/Landing.astro` for example
 * Use of Astro's built-in components such as `<Picture />`, as demonstrated in `/src/components/Landing.astro` for example
-* Decap CMS integration with  blog ready-to-go- allows your client to write blog posts
-* Astro content collections, leveraging image validation. This allows the use of Astro components on user-uploaded images via the CMS. Hello .webp and .avif!
+* Decap CMS integration with a blog ready to go. Give access to your client via Netlify Identity to allow them to write blog posts. Their edits will be pushed to the repository, triggering a re-build automatically.
+* Use of Astro content collections, leveraging image validation. This allows the use of Astro components on user-uploaded images via the CMS, automatically converting your images to modern `.webp` or `.avif` format.
 * Accessible dropdown menus on desktop navigation and nested pages
 * Perfect Lighthouse scores
   
@@ -405,12 +405,12 @@ Content Collections can also be used on content that is not created via the CMS.
 1. Ensure the sitemap, robots.txt and \_redirects have been filled out. Instructions and tools for how to do so can be found in the File Structure section
 2. Navigate to your Netlify Admin Panel, click _Add new site | Import an existing project_
 3. Follow the instructions to connect your GitHub repository to Netlify.
-4. Once deployed, click on Identity in the top navigation, then click Enable Identity
+4. Once deployed, go to the project's page, click on `Site configuration` then `Identity` in the navigation, then click `Enable Identity`
 5. Invite yourself, and the client, to the site
 6. While in the Identity tab, click the "Settings and usage" button to open the settings options. Then, do the following:
-    * Find "Registration Preferences", click "Edit Settings" and set registration from Public to Invite Only
-    * Find "Enable Providers" and add a provider. We recommend Google, so the client can login with Google in 1 click.
-    * Find "Git Gateway" and enable it
+    * Go to `Registration / Registration Preferences`, and set registration from Public to Invite Only
+    * Go to `Registration / External Providers` and add a provider. We recommend Google, so the client can login with Google in 1 click.
+    * Go to `Services / Git Gateway` and enable it.
 
 <a name="Conclusion"></a>
 
