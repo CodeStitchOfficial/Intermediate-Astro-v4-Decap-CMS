@@ -31,7 +31,7 @@
 
 ## Overview
 
-This beginner kit includes a pre-configured <a href="https://www.astro.build">Astro</a> environment, which
+This intermediate kit includes a pre-configured <a href="https://www.astro.build">Astro</a> environment, which
 allows for repeated components, centralized data and greater room to scale as your clients grow. The kit runs the latest major Astro version, v4. On top of this, a blog has been provided through [Decap CMS](https://decapcms.org/) to allow your clients to manage their content on their own. This can easily be adapted to anything which requires changing content, such as menus, job listing boards, portfolios and much more.
 
 An example website has also been provided, with easy substitution of website sections possible through the use of <a href="https://codestitch.app/">CodeStitch's
