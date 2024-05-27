@@ -35,16 +35,8 @@ This beginner kit includes a pre-configured <a href="https://www.astro.build">As
 allows for repeated components, centralized data and greater room to scale as your clients grow. The kit runs the latest major Astro version, v4. On top of this, a blog has been provided through [Decap CMS](https://decapcms.org/) to allow your clients to manage their content on their own. This can easily be adapted to anything which requires changing content, such as menus, job listing boards, portfolios and much more.
 
 An example website has also been provided, with easy substitution of website sections possible through the use of <a href="https://codestitch.app/">CodeStitch's
-vanilla component library</a>. This kit aims to get any project off the ground in as little time as possible, with deployment being possible in as little as two
-minutes.
+vanilla component library</a>. This kit aims to get any project off the ground in as little time as possible, with deployment being possible in as little as two minutes. We recommend Netlify as a host to take advantage of Netlify Identity and client authentication to the CMS dashboard.
 
-<a name="acknowledgments"></a>
-
-## Acknowledgments
-
-The author would like to acknowledge:
-* [Cedar Studios](https://github.com/cedar-studios) - Their [Intermediate-Astro-Kit-LESS](https://github.com/cedar-studios/Intermediate-Astro-Kit-LESS/tree/master) is the base of this template, which aims to improve on a few issues such as a breaking update to Astro v.4 due to outdated `astro-netlify-cms` integration.
-* [CodeStitch](https://codestitch.app/) - Some of their free stitches were used in this template.
 
 <a name="prerequisites"></a>
 
@@ -63,12 +55,13 @@ Only the vanilla web technologies are _required_ before using this kit, with som
 ## Features
 
 * Runs on Astro v4
-* Astro's `<ViewTransitions />` integration
-* Use of components, props and scoped styles, as demonstrated in `/src/components/Landing.astro` for example
-* Use of Astro's built-in components such as `<Picture />`, as demonstrated in `/src/components/Landing.astro` for example
 * Decap CMS integration with a blog ready to go. Give access to your client via Netlify Identity to allow them to write blog posts. Their edits will be pushed to the repository, triggering a re-build automatically.
-* Use of Astro content collections, leveraging image validation. This allows the use of Astro components on user-uploaded images via the CMS, automatically converting your images to modern `.webp` or `.avif` format.
+* Astro's `<ViewTransitions />` integration
+* Components, props and scoped styles, as demonstrated in `/src/components/Landing.astro` for example
+* Astro's built-in components such as `<Picture />`, as demonstrated in `/src/components/Landing.astro` for example
+* Astro's content collections, leveraging image validation. This allows the use of Astro components on user-uploaded images via the CMS, automatically converting your images to modern `.webp` or `.avif` format.
 * Accessible dropdown menus on desktop navigation and nested pages
+* [CodeStitch](https://codestitch.app/) HTML and CSS blocks to build the UI.
 * Perfect Lighthouse scores
   
 ![Lighthouse perfect score](https://github.com/BuckyBuck135/Intermediate-Astro-v4-Decap-CMS/blob/main/public/assets/lighthouse/100-score.png)
@@ -411,6 +404,17 @@ Content Collections can also be used on content that is not created via the CMS.
     * Go to `Registration / Registration Preferences`, and set registration from Public to Invite Only
     * Go to `Registration / External Providers` and add a provider. We recommend Google, so the client can login with Google in 1 click.
     * Go to `Services / Git Gateway` and enable it.
+
+
+<a name="acknowledgments"></a>
+
+## Acknowledgments
+
+The author would like to acknowledge:
+* [Cedar Studios](https://github.com/cedar-studios) - Their [Intermediate-Astro-Kit-LESS](https://github.com/cedar-studios/Intermediate-Astro-Kit-LESS/tree/master) is the base of this template, which aims to improve on a few issues such as a breaking update to Astro v.4 due to outdated `astro-netlify-cms` integration.
+* [CodeStitch](https://codestitch.app/) - Some of their free stitches were used in this template.
+
+
 
 <a name="Conclusion"></a>
 
