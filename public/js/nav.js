@@ -3,13 +3,18 @@ document.addEventListener('astro:page-load', () => { // Make the script controll
 
     const CSbody = document.querySelector('body');
     const CSnavbarMenu = document.getElementById('cs-navigation');
+    const CSUlWrapper = document.getElementById('cs-ul-wrapper');
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     
-    // Toggles the hamburger mobile menu
-    mobileMenuToggle.addEventListener('click', function () {
+    function toggleMenu() {
         mobileMenuToggle.classList.toggle('cs-active');
         CSnavbarMenu.classList.toggle('cs-active');
         CSbody.classList.toggle('cs-open');
+    }
+
+    // Toggles the hamburger mobile menu
+    mobileMenuToggle.addEventListener('click', function () {
+        toggleMenu()
         ariaExpanded(mobileMenuToggle);
     });
   
@@ -23,58 +28,78 @@ document.addEventListener('astro:page-load', () => { // Make the script controll
         };
     };
 
-    ///// Handling dropdown menus on desktop (keyboard navigation) and mobile (clicks)/////
+    // Add event listeners to each dropdown element for accessibility
     const dropdownElements = document.querySelectorAll(".cs-dropdown");
     dropdownElements.forEach(element => {
-        
-        element.addEventListener("keydown", function(event) {
-            const dropdownButton = element.querySelector(".cs-dropdown-button");
-            // Makes dropdown menus appear upon hitting "Enter" or "Spacebar"
-            if (event.key === "Enter" || event.key === " ") {
-                element.classList.toggle("cs-active");
-                if (dropdownButton) {
-                    ariaExpanded(dropdownButton);
-                }
-                event.preventDefault() // prevents default behavior of keys (moving down the page for "space")
-            };
+        // This variable tracks if the Escape key was pressed. This flag will be checked in the focusout event handler to ensure that pressing the Escape key does not trigger the focusout event and subsequently remove the cs-active class from the dropdown
+        let escapePressed = false;
 
-            // Makes dropdown menus disappear upon hitting "Esc"
-            if (event.key === 'Escape') {
+        element.addEventListener("focusout", function (event) {
+            if (escapePressed) {
+                escapePressed = false;
+                return; // Skip the focusout logic if escape was pressed
+            }
+            // If the focus has moved outside the dropdown, remove the active class from the dropdown 
+            if (!element.contains(event.relatedTarget)) {
                 element.classList.remove("cs-active");
-                element.focus(); // Set focus back to the element
-                if (dropdownButton) {
-                    ariaExpanded(dropdownButton);
-                }
-            };
-        });
-
-        // Makes dropdown menus disappear upon tabbing out of the menu
-        element.addEventListener("focusout", function(event) {
-            // Checks if the new focused element is outside of the current .cs-dropdown
-            const relatedTarget = event.relatedTarget;
-            if (!element.contains(relatedTarget)) {
-                element.classList.remove("cs-active");
+                // adjust aria-expanded attribute on the dropdown button only
                 const dropdownButton = element.querySelector(".cs-dropdown-button");
                 if (dropdownButton) {
                     ariaExpanded(dropdownButton);
                 }
-            };
+            }
         });
 
-        // Handles dropdown menus on mobile - matching media query (max-width: 63.9375rem) so clicks and hover don't interfere with each other on desktop
+        element.addEventListener("keydown", function (event) {
+            const dropdownButton = element.querySelector(".cs-dropdown-button");
+            // If the dropdown is active, stop the event from propagating. This is so we can use Escape to close the dropdown, then press it again to close the hamburger menu (if needed)
+            if (element.classList.contains("cs-active")) {
+                event.stopPropagation();
+            }
+
+            // Pressing Enter or Space will toggle the dropdown and adjust the aria-expanded attribute
+            if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+
+                element.classList.toggle("cs-active");
+                // adjust aria-expanded attribute on the dropdown button only
+                if (dropdownButton) {
+                    ariaExpanded(dropdownButton);
+                }
+            };
+
+            // Pressing Escape will remove the active class from the dropdown. The stopPropagation above will stop the hamburger menu from closing
+            if (event.key === "Escape") {
+                escapePressed = true;
+                element.classList.remove("cs-active");
+                // adjust aria-expanded attribute on the dropdown button only
+                if (dropdownButton) {
+                    ariaExpanded(dropdownButton);
+                }
+            }
+        });
+
+        // Handles dropdown menus on mobile - the matching media query (max-width: 63.9375rem) is necessary so that clicking the dropdown button on desktop does not add the active class and thus interfere with the hover state
         const maxWidthMediaQuery = window.matchMedia("(max-width: 63.9375rem)");
         if (maxWidthMediaQuery.matches) {
-            element.addEventListener("click", () => {
+            element.addEventListener("click", (e) => {
                 element.classList.toggle("cs-active")
                 const dropdownButton = element.querySelector(".cs-dropdown-button");
                     if (dropdownButton) {
                         ariaExpanded(dropdownButton);
                     }
             });
+
+            // If you press Escape and the hamburger menu is open, close it
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && mobileMenuToggle.classList.contains("cs-active")) {
+                    toggleMenu();
+                }
+            });
         };
     });
 
-    // Redirect to the href when Enter is pressed
+    // Pressing Enter will redirect to the href
     const dropdownLinks = document.querySelectorAll(".cs-drop-li > .cs-li-link");
     dropdownLinks.forEach(link => {
         link.addEventListener("keydown", function(event) {
@@ -82,5 +107,5 @@ document.addEventListener('astro:page-load', () => { // Make the script controll
                 window.location.href = this.href;
             } 
         });
-    });
+    });   
 });
