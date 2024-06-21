@@ -21,11 +21,7 @@ document.addEventListener('astro:page-load', () => { // Make the script controll
     // Checks the value of aria expanded on an element and changes it accordingly whether it is expanded or not
     function ariaExpanded(element) {
         const isExpanded = element.getAttribute('aria-expanded');
-        if (isExpanded === "false") {
-            element.setAttribute('aria-expanded', 'true');
-        } else {
-            element.setAttribute('aria-expanded', 'false');
-        };
+        element.setAttribute('aria-expanded', isExpanded === 'false' ? 'true' : 'false');
     };
 
     // Add event listeners to each dropdown element for accessibility
