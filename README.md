@@ -10,13 +10,13 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [Getting Started](#gettingStarted)
 - [Acknowledgments](#acknowledgments)
 - [Prerequisites](#prerequisites)
 - [Features](#features)
 - [File Structure](#fileStructure)
   - [Root Files and Folders](#rootFilesAndFolders)
   - [Source Files and Folders](#sourceFilesAndFolders)
-- [Getting Started](#gettingStarted)
 - [Expanding the Project](#expandingTheProject)
   - [Reusing Code](#reusingCode)
   - [Adding More Pages](#addingMorePages)
@@ -37,6 +37,33 @@ allows for repeated components, centralized data and greater room to scale as yo
 An example website has also been provided, with easy substitution of website sections possible through the use of <a href="https://codestitch.app/">CodeStitch's
 vanilla component library</a>. This kit aims to get any project off the ground in as little time as possible, with deployment being possible in as little as two minutes. We recommend Netlify as a host to take advantage of Netlify Identity and client authentication to the CMS dashboard.
 
+
+<a name="gettingStarted"></a>
+
+## Getting Started
+
+1. At the top right of the GitHub Repository, click the green _Use this template_ button,
+   then click _Create a new repository_.
+2. Follow the instructions to create a new repository, using this repo as a template.
+3. When created, clone the repository to your local machine.
+4. Run `npm install` to install all dependencies.
+5. Run `npm run dev` to start the project and spin up a development server on `localhost:4321` and a Decap admin server. Access the admin dashboard at the `/admin` path.
+
+Next, it is recommended to update `data/client.json` with some new information about this project. Through the power of templating, the
+project's `<head>` and contact information will automatically be filled out, providing a first peek into some of the benefits of SSGs.
+
+You can find all of CodeStitches `:root` variables, as well as .cs-topper, .cs-title and .cs-text, within the `root` stylesheet. Feel free to adjust these, or use our Content Flair micro-stitches, to update site-wide styles quickly.
+
+In the `components` folder live all your custom components in `.astro` format. They take advantage of Astro's style-scoping. Any styles you write in `Header.astro` will not escape that file.
+
+
+<a name="acknowledgments"></a>
+
+## Acknowledgments
+
+The author would like to acknowledge:
+* [Cedar Studios](https://github.com/cedar-studios) - Their [Intermediate-Astro-Kit-LESS](https://github.com/cedar-studios/Intermediate-Astro-Kit-LESS/tree/master) is the base of this template, which aims to improve on a few issues such as a breaking update to Astro v.4 due to outdated `astro-netlify-cms` integration.
+* [CodeStitch](https://codestitch.app/) - Some of their free stitches were used in this template.
 
 <a name="prerequisites"></a>
 
@@ -135,25 +162,7 @@ This kit ships the following packages:
 - sitemap.xml - A map of the pages on the domain. Create your own after deployment <a href="https://www.xml-sitemaps.com/">here</a>
 - tsconfig.json - A utility file used here to declare shortcuts for easier imports.
 
-<a name="gettingStarted"></a>
 
-## Getting Started
-
-1. At the top right of the GitHub Repository, click the green _Use this template_ button,
-   then click _Create a new repository_.
-2. Follow the instructions to create a new repository, using this repo as a template.
-3. When created, clone the repository to your local machine.
-4. Run `npm install` to install all dependencies.
-5. Run `npm run dev` to start the project and spin up a development server on `localhost:4321` and a Decap admin server on `localhost:8081`.
-
-Running `npm run dev` will start a development server and begin LESS preprocessing.
-
-Next, it is recommended to update `data/client.json` with some new information about this project. Through the power of templating, the
-project's `<head>` and contact information will automatically be filled out, providing a first peek into some of the benefits of SSGs.
-
-You can find all of CodeStitches `:root` variables, as well as .cs-topper, .cs-title and .cs-text, within the `root` stylesheet. Feel free to adjust these, or use our Content Flair micro-stitches, to update site-wide styles quickly.
-
-In the `components` folder live all your custom components in `.astro` format. They take advantage of Astro's style-scoping. Any styles you write in `Header.astro` will not escape that file.
 
 <a name="expandingTheProject"></a>
 
@@ -372,7 +381,7 @@ Blog content lives in `/src/content/blog` in the form of markdown files, with a 
 
 Files uploaded through the dashboard's media library will be stored in `src/assets/images/blog` so that they can be accessed and optimised by Astro components if you wish.
 
-When `npm start` is run, a proxy server for the CMS is spun up on `localhost:8081`. That can often mean you run into errors if `localhost:8080` is already taken, so look out for that. You can locally access the blog via navigating to the /admin path. All blog content can be easily created, updated and deleted via this admin panel, and is the very system that your clients can use to manage their website without your involvement. 
+When `npm run dev` is run, a proxy server for the CMS is spun up on `localhost:8081`. That can often mean you run into errors if `localhost:8080` is already taken, so look out for that. You can locally access the blog via navigating to the `/admin` path (e.g. `http://localhost:4321/admin`). All blog content can be easily created, updated and deleted via this admin panel, and is the very system that your clients can use to manage their website without your involvement. 
 
 Everything on the blog should be fairly intuitive, but feel free to experiment with using this panel first. With this kit, you can add _featured_ to the comma-separated list of tags to have them show up as so in the frontend.
 
@@ -394,6 +403,8 @@ Content Collections can also be used on content that is not created via the CMS.
 <a name="deployment"></a>
 
 ## Deployment
+
+0. **Before** you deploy, it is recommended to test the build. Run `npm run build` to build the project. Once done, run `npm run preview` which you can access on `http://localhost:4321/`. This allows you to test your website as if it was deployed on your host. 
 
 1. Ensure the sitemap, robots.txt and \_redirects have been filled out. Instructions and tools for how to do so can be found in the File Structure section
 2. Navigate to your Netlify Admin Panel, click _Add new site | Import an existing project_
