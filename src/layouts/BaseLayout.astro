@@ -60,7 +60,6 @@ const {description, title} = Astro.props;
             </title>
 
             <!-- Sitewide Scripts -->
-            <script defer src="/js/dark.js"></script>
             <script defer src="/js/nav.js"></script>
 
             <!-- Decap CMS scripts -->
@@ -95,3 +94,40 @@ const {description, title} = Astro.props;
     
         </body>
 </html>
+
+<script is:inline>
+    // helper functions to toggle dark mode
+    function enableDarkMode() {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark");
+    }
+  
+    function disableDarkMode() {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("theme", "light");
+    }
+  
+    function setTheme() {
+      // default to the light theme
+      let theme = "light";
+  
+      // check localStorage for a saved 'theme' variable. if it's there, the user has visited before, so apply the necessary theme choices
+      if (localStorage.getItem("theme")) {
+        theme = localStorage.getItem("theme");
+      }
+      // if it's not there, check to see if the user has applied dark mode preferences themselves in the browser
+      else if (
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+      ) {
+        theme = "dark";
+      }
+  
+      // if there is no preference set, the default of light will be used. apply accordingly
+      theme === "dark" ? enableDarkMode() : disableDarkMode();
+    }
+  
+    setTheme();
+  
+    document.addEventListener("astro:after-swap", setTheme); // For View Transitions purposes - astro:after-swap ensures that the theme is kept after navigating to a new page.
+  </script>
