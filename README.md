@@ -7,6 +7,10 @@
     <a href="https://intermediate-astro-kit-decap-cms.netlify.app" target="_blank">View Live Result</a>
   </p>
 
+  <p align="center">
+    Created and maintained by <a href="https://github.com/BuckyBuck135" target="_blank">BuckyBuck135</a>
+  </p>
+
 ## Table of Contents
 
 - [Overview](#overview)
@@ -14,13 +18,13 @@
 - [Acknowledgments](#acknowledgments)
 - [Prerequisites](#prerequisites)
 - [Features](#features)
-- [File Structure](#fileStructure)
+- [Project Structure](#projectStructure)
+  - [Project Tree](#projectTree)
   - [Root Files and Folders](#rootFilesAndFolders)
-  - [Source Files and Folders](#sourceFilesAndFolders)
 - [Expanding the Project](#expandingTheProject)
   - [Reusing Code](#reusingCode)
   - [Adding More Pages](#addingMorePages)
-  - [Navigation via Front Matter](#navigationViaFrontMatter)
+  - [Navigation via navData.json](#navigationViaFrontMatter)
   - [Built-in Astro components](#builtinastrocomponents)
   - [Configuring the CMS](#configuringTheCms)
   - [Astro Content Collections](#AstroContentCollections)
@@ -53,8 +57,6 @@ Next, it is recommended to update `data/client.json` with some new information a
 project's `<head>` and contact information will automatically be filled out, providing a first peek into some of the benefits of SSGs.
 
 You can find all of CodeStitches `:root` variables, as well as .cs-topper, .cs-title and .cs-text, within the `root` stylesheet. Feel free to adjust these, or use our Content Flair micro-stitches, to update site-wide styles quickly.
-
-In the `components` folder live all your custom components in `.astro` format. They take advantage of Astro's style-scoping. Any styles you write in `Header.astro` will not escape that file.
 
 
 <a name="acknowledgments"></a>
@@ -91,33 +93,45 @@ Only the vanilla web technologies are _required_ before using this kit, with som
 * [CodeStitch](https://codestitch.app/) HTML and CSS blocks to build the UI.
 * Perfect Lighthouse scores
   
-![Lighthouse perfect score](https://github.com/BuckyBuck135/Intermediate-Astro-v4-Decap-CMS/blob/main/public/assets/lighthouse/100-score.png)
+![Lighthouse perfect score](public/assets/lighthouse/100-score.png)
 
 This kit ships the following packages:
 * [Astro Icon](https://www.astroicon.dev/) - Astro Icon is a straightforward icon system for the Astro framework.
 * [Autoprefixer](https://www.npmjs.com/package/autoprefixer) - PostCSS plugin to parse CSS and add vendor prefixes to CSS rules using values from Can I Use. It is recommended by Google and used in Twitter and Alibaba.
 * [LESS](https://www.npmjs.com/package/less) - Less makes a few convenient additions to the CSS language, but you can also simply write standard CSS if you wish.
-* [Concurrently](https://www.npmjs.com/package/concurrently) - Used to run npm commands concurrently. In our case, we use it to spin up the local dev environment on localhost:4321 and Decap local server on localhost:8081
-<a name="fileStructure"></a>
 
-## File Structure
+<a name="projectStructure"></a>
+
+## Project Structure
+
+Astro leverages an opinionated folder layout for your project. Every Astro project root should include the following directories and files:
+* `src/*` - Your project source code (components, pages, styles, etc.)
+* `public/*` - Your non-code, unprocessed assets (fonts, icons, etc.)
+* `package.json` - A project manifest.
+* `astro.config.mjs` - An Astro configuration file. (recommended)
+* `tsconfig.json` - A TypeScript configuration file. (recommended)
+
+<a name="projectTree"></a>
+
+### Project Tree
 
 ```
 .
 ├── public/
+│   ├── admin/
+|   |   └── config.yml
 |   |—— assets/
 |   |   |—— favicons/
 |   |   |—— fonts/
 |   |   |—— images/
-|   |   |—— js/
 |   |   └── svgs/
 |   |—— _redirects
 |   |—— robots.txt
 |   └── sitemap.html
 ├── src/
 |   ├── assets/
-|   |   |—— images/
-|   |   |   ── blog/
+|   |   └—— images/
+|   |       └── blog/
 |   ├── components/
 |   ├── content/
 |   |   |—— config.ts
@@ -125,6 +139,7 @@ This kit ships the following packages:
 │   ├── _data/
 │   │   ├── client.json
 │   │   └── navData.json
+│   ├── icons/
 │   ├── layouts/
 │   │   └── BaseLayout.astro
 |   ├── libs/
@@ -133,8 +148,10 @@ This kit ships the following packages:
 |   |   └── blog/
 |   |   └── projects/
 |   └── styles/
-├── .astro.config.mjs
-├── .postcss.config.cjs
+├── astro.config.mjs
+├── postcss.config.cjs
+├── package-lock.json
+├── package.json
 └── tsconfig.json
 ```
 
@@ -142,26 +159,83 @@ This kit ships the following packages:
 
 ### Root Files and Folders
 
-- public/ - All assets you don't want optimized by Astro. Include fonts and favicons in here. The \_redirects, robots.txt, and sitemap.xml also live here.
-- public/admin/config.yml - This is where Decap CMS configuration options live. [More information about options in Decap docs](https://decapcms.org/docs/configuration-options/)
-- public/assets/images/blog - This is where the images uploaded on the CMS will be stored
-- src/ - Raw, source code. The folder you work in.
-- .astro.config.mjs - Astro config file, already set up for you.
 
+#### `public/*`
+The `public/` directory is for files and assets in your project that do not need to be processed during Astro’s build process. The files in this folder will be copied into the build folder untouched, and then your site will be built.
 
-<a name="sourceFilesAndFolders"></a>
+This behavior makes `public/` ideal for common assets like images and fonts, or special files such as`_redirects`, `robots.txt` and `sitemap.xml`.
 
-### Source Files and Folders
-
-- data/ - Global data accessible across the project. Fill out client.json before you begin. Just import this data at the top of a file you want to include it.
-- assets/ - Non-HTML files. Images, scripts and styles. It is important to note that any assets you want optimized by Astro (such as assets use din <Picture /> components for example) must be placed in `src/...`
 - \_redirects - To configure redirects. Read more on <a href="https://docs.netlify.com/routing/redirects/">Netlify</a>
 - content/ - Data to render pages from, such as the blog.
-- index.astro - Home page
 - robots.txt - Instructions for site crawlers. Learn more, and generate your own, <a href="https://en.ryte.com/free-tools/robots-txt-generator/">here</a>
 - sitemap.xml - A map of the pages on the domain. Create your own after deployment <a href="https://www.xml-sitemaps.com/">here</a>
-- tsconfig.json - A utility file used here to declare shortcuts for easier imports.
 
+You can place CSS and JavaScript in your public/ directory, but be aware that those files will not be bundled or optimized in your final build.
+
+##### `public/admin`
+This folder contains `config/yml`, which is where Decap CMS configuration options lives. [More information about options in Decap docs](https://decapcms.org/docs/configuration-options/)
+
+#### `src/*`
+The `src/` folder is where most of your project source code lives. This includes:
+
+* Pages
+* Layouts
+* Astro components
+* UI framework components (React, etc.)
+* Styles (CSS, Sass)
+* Markdown
+
+Astro processes, optimizes, and bundles your src/ files to create the final website that is shipped to the browser. Unlike the static public/ directory, your src/ files are built and handled for you by Astro.
+
+##### `src/assets`
+Contains all assets you want optimized by Astro (such as assets used in `<Picture />` components for example) must be placed in `src`.
+
+`public/assets/images/blog` is where the images uploaded on the CMS will be stored.
+
+##### `src/components`
+Components are reusable units of code for your HTML pages. These could be Astro components, or UI framework components like React or Vue. It is common to group and organize all of your project components together in this folder.
+
+##### `src/content`
+The src/content/ directory is reserved to store content collections organised in folders (e.g. `src/content/blog`) containing `.md` files, and an optional `config.ts` collections configuration file. No other files are allowed inside this folder.
+
+##### `src/data`
+This directory contains data files that are accessible within any template throughout the project. 
+* `client.js` holds some information you may wish to define for a client. It's important to fill this file out with the correct information for your client, as many HTML meta tags, the sitemap, and robots.txt all use data from this file.
+
+* `navData.json` holds data to create the navigation of your site. See more information in the [navigation via navData.json section](#navigationViaFrontMatter)
+
+##### `src/icons`
+SVGs used by the <Icon /> component **must** be placed in this folder.
+
+##### `src/layouts`
+Layouts are Astro components that define the UI structure shared by one or more pages. The `BaseLayout.astro` file acts as a giant wrapper for each individual page, where the content is injected through the `<slot /> `component.
+
+##### `src/libs`
+Contains helper functions.
+
+##### `src/pages`
+Pages are a special kind of component used to create new pages on your site. A page can be an Astro component, or a Markdown file that represents some page of content for your site.
+
+##### `src/styles`
+It is a common convention to store your CSS, Less or Sass files in a `src/styles` directory.
+
+
+
+
+#### `package.json` and `package-lock.json`
+The project's manifest. Standard NodeJS package files, containing the dependencies needed for the project to work.
+
+#### `node_modules/*`
+Created after you run `npm install`. This directory contains the code for all the dependencies that power this kit. It comes as standard with any NodeJS-powered project, much like the `package.json` and `package-lock.json` files. You can safely ignore this directory in your day-to-day work.
+
+#### `dist/`
+Created after running `npm build`. This will hold the final build of your site.
+
+#### `astro.config.mjs`
+An Astro configuration file. It's already set up for you, but you can extend it with integrations to use, build options, server options, and more.
+
+#### `tsconfig.json`
+A TypeScript configuration file. Optional. Includes TypeScript configuration options for your Astro project. Some features (like npm package imports) aren’t fully supported in the editor without a tsconfig.json file.
 
 
 <a name="expandingTheProject"></a>
