@@ -1,4 +1,11 @@
-<!-- ============================================ --><!--             Final Call to Action             --><!-- ============================================ -->
+---
+// Import the component and all the images you want to use with it
+import CSPicture from "@components/TemplateComponents/CSPicture.astro";
+import mobileImage from "@assets/images/CTA/construction-m.jpg"
+import desktopImage from "@assets/images/CTA/cabinets2.jpg"
+import fallbackImage from "@assets/images/CTA/cabinets2.jpg"
+---
+
 <section id="cta">
   <div class="container">
     <h2 class="title">
@@ -12,7 +19,15 @@
     </p>
     <a href="/contact" class="cs-button-solid">Get an Estimate Now</a>
   </div>
-  <picture>
+  <CSPicture
+    mobileImgUrl={mobileImage}
+    mobileMediaWidth="600px"
+    desktopImgUrl={desktopImage}
+    desktopMediaWidth="601px"
+    fallbackImgUrl={fallbackImage}
+    alt=""
+  />
+  <!-- <picture>
     <source
       media="(max-width: 600px)"
       srcset="/assets/images/cabinets2-m.jpg"
@@ -27,7 +42,7 @@
       width="2500"
       height="1667"
     />
-  </picture>
+  </picture> -->
 </section>
 
 <style lang="less">
@@ -53,24 +68,6 @@
 
     .container {
       text-align: center;
-    }
-
-    picture {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -2;
-
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
     }
 
     .title {
@@ -129,25 +126,6 @@
     .container {
       width: 90.0625%;
       margin: auto;
-    }
-
-    picture {
-      width: 90.0625%;
-      left: 50%;
-      transform: translateX(-50%);
-
-      &:before {
-        content: "";
-        width: 100%;
-        height: 100%;
-        background: #000;
-        opacity: 0.7;
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-      }
     }
   }
 }

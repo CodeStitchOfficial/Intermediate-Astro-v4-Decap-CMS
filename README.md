@@ -26,6 +26,7 @@
   - [Adding More Pages](#addingMorePages)
   - [Navigation via navData.json](#navigationViaFrontMatter)
   - [Built-in Astro components](#builtinastrocomponents)
+  - [Custom Picture component](#Custompicturecomponent)
   - [Configuring the CMS](#configuringTheCms)
   - [Astro Content Collections](#AstroContentCollections)
 - [Deployment](#deployment)
@@ -442,6 +443,46 @@ This code will be inserted into the `<slot />` component in BaseLayout.astro.
 This kit demonstrates the use of the built-in `<Picture />` component, [for which you can read the documentation here](https://docs.astro.build/en/guides/images/#picture-). However, not all native HTML `<picture>` elements from CodeStitch blocks have been replaced with Astro's `<Picture />` components. CodeStich users will have to decide which one they want to use:
  * CodeStich blocks already have fully-functionning `<picture>` elements that perform very well. However, the developper will have to do a time-consumming job with resizing and reformatting assets.
  * Astro's `<Picture />` components must be manually written to replace stitches. On the other hand, they automatically process and optimize assets, which allows the developper to skip the resizing and reformatting preparation work.
+
+<a name="Custom Picture component"></a>
+
+### Custompicturecomponent
+
+Astro provides two built-in components that you can use to display and optimize your images. 
+ * The <Picture> component allows you to display responsive images and work with different formats and sizes. 
+ * The <Image> component will optimize your images and allow you to pass in different formats and quality properties.
+
+If you want to replicate the `<picture>` elements with multiple `srcset` found in many Stitches, you can use our custom `<CSPicture />` component located in `/src/Components/TemplateComponents`. 
+
+It uses <a href="https://docs.astro.build/en/recipes/build-custom-img-component/">Astro's `getImage()` function</a> to create a custom image component that displays different source images based on media queries.
+
+> Note: the component will automatically convert your .jpg files to .webp! 
+
+```JSX
+
+---
+// Import the component and all the images you want to use with it
+import CSPicture from "@components/TemplateComponents/CSPicture.astro";
+import mobileImage from "@assets/images/construction-m.jpg"
+import desktopImage from "@assets/images/cabinets2.jpg"
+import fallbackImage from "@assets/images/cabinets2.jpg"
+---
+
+  <CSPicture
+    mobileImgUrl={mobileImage}
+    mobileMediaWidth="600px"
+    desktopImgUrl={desktopImage}
+    desktopMediaWidth="601px"
+    fallbackImgUrl={fallbackImage}
+    alt=""
+  />
+```
+
+It is currently set up to 
+1. accept 3 images (mobile, desktop and fallback) that can be not only different sizes, crops but also completely different assets, as demnnstrated here.
+2. accept mobile and desktop media width if you want to adjust these sizes on a case by case basis.
+
+You can of course adjust the sizes of attributes baased on your customization's needs directly in the component.
 
 
 <a name="configuringTheCms"></a>
