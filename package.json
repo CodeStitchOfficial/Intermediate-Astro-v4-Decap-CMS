@@ -10,10 +10,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^4.11.5",
+    "@astrojs/check": "^0.8.3",
+    "astro": "^4.12.2",
     "astro-icon": "^1.1.0",
     "autoprefixer": "^10.4.19",
     "decap-server": "^3.0.4",
-    "less": "^4.2.0"
+    "less": "^4.2.0",
+    "typescript": "^5.5.4"
   }
 }
