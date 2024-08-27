@@ -1,17 +1,18 @@
+# See full Decap documentation for further configuration: https://decapcms.org/docs/intro/
 backend:
   name: git-gateway
   branch: main # Branch to update (optional; defaults to master)
 local_backend: true
-media_folder: src/assets/images/blog # Location where files will be stored in the repo
-public_folder: src/assets/images/blog  # The src attribute for uploaded media
+media_folder: src/assets/images/blog # Location where files will be stored in the repo - we store them in src so that Astro can optimize them.
+public_folder: src/assets/images/blog  # Ensure that this path is the same as the media_folder path above.
 site_url: https://intermediate-astro-kit-decap-cms.netlify.app/ # Displays a link to home page in the top-right corner of the CMS dashboard
 
 collections:
-  - name: "blog" # Used in routes, e.g., /admin/collections/blog
-    label: "Blog" # Used in the UI
+  - name: "blog" # Used in routes, e.g., /admin/collections/blog. Is also the key when fetching data from the CMS.
+    label: "Blog" # Used in the admin dashboard UI
     folder: "src/content/blog" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
-    fields: # The fields for each document, usually in frontmatter
+    fields: # The fields for each document
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Description", name: "description", widget: "string" }
       - { label: "Author", name: "author", widget: "string" }
