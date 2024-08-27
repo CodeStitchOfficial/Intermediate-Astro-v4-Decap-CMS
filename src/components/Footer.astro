@@ -1,5 +1,6 @@
 ---
 import client from "@data/client.json";
+import navData from "@data/navData.json";
 import { getCurrentYear } from "@libs/utils"
 
 const currentYear = getCurrentYear()
@@ -30,21 +31,15 @@ const currentYear = getCurrentYear()
           <li>
             <h2>Information</h2>
           </li>
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/about">About Us</a>
-          </li>
-          <li>
-            <a href="/projects">Projects</a>
-          </li>
-          <li>
-            <a href="/testimonials">Reviews</a>
-          </li>
-          <li>
-            <a href="/contact">Contact</a>
-          </li>
+          {
+            navData.map((entry) => (
+              <li class="cs-li">
+                <a href={entry.url}>
+                  {entry.key}
+                </a>
+              </li>
+            ))
+          }
         </ul>
         <ul>
           <li>

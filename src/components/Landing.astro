@@ -70,7 +70,7 @@ const { title } = Astro.props
         }
 
         h1 {
-            font-size: 64/30rem;
+            font-size: var(--headerFontSize);
             text-align: center;
             width: 96%;
             max-width: (500/16rem);
@@ -93,21 +93,9 @@ const { title } = Astro.props
     }
 }
 
-/* Tablet */
-@media only screen and (min-width: 48em) {
-    #int-hero {
-        font-size: 100%;
-
-        h1 {
-            font-size: (64/16rem);
-        }
-    }
-}
-
 /* Small Desktop */
 @media only screen and (min-width: 64em) {
     #int-hero {
-        font-size: inherit;
         height: auto;
         min-height: (300/16rem);
         padding-top: (180/16rem);
