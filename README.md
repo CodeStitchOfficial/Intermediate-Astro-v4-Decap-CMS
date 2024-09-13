@@ -23,6 +23,7 @@
   - [Root Files and Folders](#rootFilesAndFolders)
 - [Expanding the Project](#expandingTheProject)
   - [Reusing Code](#reusingCode)
+  - [Scripts and Event Handling](#scripts)
   - [Adding More Pages](#addingMorePages)
   - [Navigation via navData.json](#navigationViaFrontMatter)
   - [Built-in Astro components](#builtinastrocomponents)
@@ -125,7 +126,6 @@ Astro leverages an opinionated folder layout for your project. Every Astro proje
 |   |   |—— favicons/
 |   |   |—— fonts/
 |   |   |—— images/
-|   |   |—— js/
 |   |   └── svgs/
 |   |—— _redirects
 |   |—— robots.txt
@@ -134,6 +134,8 @@ Astro leverages an opinionated folder layout for your project. Every Astro proje
 |   ├── assets/
 |   |   └—— images/
 |   |       └── blog/
+|   |   └—— js/
+|   |       └── nav.js
 |   ├── components/
 |   ├── content/
 |   |   |—— config.ts
@@ -329,6 +331,7 @@ In this kit, both the nav and FAQ scripts use the `astro:page-load` wrapper. You
 ```
 
 For an in-depth explanation, please refer <a href="https://docs.astro.build/en/guides/view-transitions/#script-behavior-with-view-transitions">to the documentation.
+
 <a name="addingMorePages"></a>
 
 ### Adding More Pages
