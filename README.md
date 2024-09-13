@@ -125,6 +125,7 @@ Astro leverages an opinionated folder layout for your project. Every Astro proje
 |   |   |—— favicons/
 |   |   |—— fonts/
 |   |   |—— images/
+|   |   |—— js/
 |   |   └── svgs/
 |   |—— _redirects
 |   |—— robots.txt
@@ -287,6 +288,47 @@ const { title } = Astro.props // Destructure the incoming props. Note the `Astro
 
 ```
 
+<a name="scripts"></a>
+
+### Scripts and Event Handling
+You can add interactivity to your Astro components using standard HTML `<script>` tags. This allows you to send JavaScript to run in the browser and add functionality to your Astro components.
+
+#### Using `<script>` in Astro
+
+This kit uses scripts in two different ways:
+1. Imported from `src/`
+
+Astro will build, optimize, and add these scripts to the page for you.
+> `async` and `defer` attributes are unnecessary. Indeed, the processed script will be injected into your page’s <head> with `type="module"` and module scripts are always deferred automatically.
+
+For example, `nav.js` lives in `src/` and is used in `Baselayout.astro` like so: 
+
+`<script src="../assets/js/nav.js"></script>`
+
+
+2. Scoped to the component
+
+Another way to use scripts in Astro is to use them directly in the component. For example, the `FAQ.astro` component uses a `<script>` tag to toggle the FAQ elements on and off. This script doesn't need to be executed on every page, so it is best scoped to its component.
+
+This being said, this particular script could also well be imported from `src/` as seen above, and it would work too.
+
+#### Using scripts with `<ViewTransitions />` enabled
+When you add view transitions to an existing Astro project, some of your scripts may no longer re-run after page navigation like they did with full-page browser refreshes. 
+
+The <ViewTransition /> router fires a number of events on the document during navigation. These events provide hooks into the lifecycle of navigation, allowing you to do things like show indicators that a new page is loading, override default behavior, and restore state as navigation is completing.
+
+In this kit, both the nav and FAQ scripts use the `astro:page-load` wrapper. You can use this event to run code on every page navigation, for example to set up event listeners that would otherwise be lost during navigation.
+
+```js
+<script>
+  document.addEventListener('astro:page-load', () => {
+    // This runs on first page load and after every navigation.
+    setupStuff(); // e.g. add event listeners
+  });
+</script>
+```
+
+For an in-depth explanation, please refer <a href="https://docs.astro.build/en/guides/view-transitions/#script-behavior-with-view-transitions">to the documentation.
 <a name="addingMorePages"></a>
 
 ### Adding More Pages
