@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.9.3",
-    "astro": "^4.14.5",
+    "astro": "^4.15.6",
     "astro-icon": "^1.1.1",
     "autoprefixer": "^10.4.19",
     "decap-server": "^3.0.4",
