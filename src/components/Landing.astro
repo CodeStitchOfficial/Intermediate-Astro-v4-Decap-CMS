@@ -1,15 +1,17 @@
 ---
 import Picture from "astro/components/Picture.astro"
-import landingImage from "@assets/images/landing.jpg" // The asset must be imported from src in order to be used in <Picture /> or <Image />
-const { title } = Astro.props
+const { title, image } = Astro.props
 ---
 
 <section id="int-hero">
 <h1 id="home-h">{title}</h1>
 
 <!-- standard <picture> attributes are supported. Set loading to lazy for assets below the fold -->
-<Picture 
-    src={landingImage}
+ <!-- Note: because we use the getImage function to generate an optimized image, we need to use special properties. More info on [the getImage() page](https://docs.astro.build/en/guides/images/#generating-images-with-getimage) -->
+ <Picture 
+    src={image.src}
+    width={image.attributes.width}
+    height={image.attributes.height}
     formats={['avif', 'webp']} 
     alt="A description of my image."
     aria-hidden="true" 
