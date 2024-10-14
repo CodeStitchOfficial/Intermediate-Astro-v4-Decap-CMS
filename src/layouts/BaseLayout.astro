@@ -6,7 +6,7 @@ import Footer from "@components/Footer.astro";
 import "@styles/root.less";
 import "@styles/dark.less";
 
-const {description, title} = Astro.props;
+const { description, title, preloadedImage } = Astro.props;
 
 ---
 <!-- A fully fleshed-out <head>, dynamically changing based on client.json and the page front matter -->
@@ -22,7 +22,10 @@ const {description, title} = Astro.props;
             <meta name="description" content={description}>
             <meta name="keywords" content="">
             <link rel="canonical" href={`https://${client.domain}${Astro.url.pathname}`}>
-    
+
+            <!-- Preloads the image passed as a prop -->
+            <link rel="preload" href={preloadedImage.src} as="image" />
+
             <!--Social Media Display-->
             <meta property="og:title" content={title} />
             <meta property="og:description" content={description} />

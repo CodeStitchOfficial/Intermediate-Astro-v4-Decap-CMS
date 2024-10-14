@@ -2,11 +2,17 @@
 import BaseLayout from "src/layouts/BaseLayout.astro";
 import CTA from "@components/CTA.astro";
 import FAQ from "@components/FAQ.astro";
+
+// Optimize our landing image and pass it as props to the BaseLayout (for preloading) and Landing (for rendering)
+import {getOptimizedImage} from "@libs/utils"
+import landingImage from "@assets/images/landing.jpg" // <-- THE PATH TO THE ASSET YOU WANT TO PRELOAD - The asset must live in src
+const optimizedImage = await getOptimizedImage(landingImage)
 ---
 
 <BaseLayout
   title="Pixel Perfect Websites"
   description="Meta description for the page"
+  preloadedImage = {optimizedImage}
 >
   <!-- ============================================ -->
   <!--                    Hero                      -->
@@ -48,7 +54,7 @@ allows for repeated components, centralized data and greater room to scale as yo
       <img
         aria-hidden="true"
         decoding="async"
-        src="/assets/images/hero.jpg"
+        src={optimizedImage.src}
         alt="new home"
         width="2500"
         height="1667"
