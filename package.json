@@ -1,7 +1,7 @@
 {
-  "name": "astro-kit-less",
+  "name": "astro-kit-les-decap",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "dev": "npm run astro dev & npx decap-server",
     "start": "astro dev",
@@ -10,12 +10,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.3",
-    "astro": "^4.15.6",
+    "@astrojs/check": "^0.9.4",
+    "astro": "^4.16.3",
     "astro-icon": "^1.1.1",
-    "autoprefixer": "^10.4.19",
-    "decap-server": "^3.0.4",
+    "autoprefixer": "^10.4.20",
+    "decap-server": "^3.1.2",
     "less": "^4.2.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.6.3"
   }
 }
