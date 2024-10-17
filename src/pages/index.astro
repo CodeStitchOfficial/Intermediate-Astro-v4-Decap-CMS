@@ -6,6 +6,7 @@ import FAQ from "@components/FAQ.astro";
 // Optimize our landing image and pass it as props to the BaseLayout (for preloading) and Landing (for rendering)
 import {getOptimizedImage} from "@libs/utils"
 import landingImage from "@assets/images/landing.jpg" // <-- THE PATH TO THE ASSET YOU WANT TO PRELOAD - The asset must live in src
+import Pricing from "@components/Pricing.astro";
 const optimizedImage = await getOptimizedImage(landingImage)
 ---
 
@@ -121,6 +122,8 @@ allows for repeated components, centralized data and greater room to scale as yo
       </p>
     </div>
   </section>
+
+  <Pricing />
 
   <!-- ============================================ -->
   <!--                 Side By Side                 -->
