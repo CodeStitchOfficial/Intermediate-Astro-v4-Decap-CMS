@@ -1,0 +1,692 @@
+<!-- ============================================ --><!--                  Pricing                     --><!-- ============================================ -->
+<section id="pricing-1387">
+    <div class="cs-container">
+        <div class="cs-content">
+            <span class="cs-topper">Our Pricing</span>
+            <h2 class="cs-title">
+                Flexible Pricing Plans for Your Tailored Needs
+            </h2>
+            <p class="cs-text">
+                In the new era of technology we look in the future with
+                certainty and for any post types, or just they are so much great
+                of all to a program.
+            </p>
+            <div class="cs-toggle-group">
+                <span id="cs-option1-1387" class="cs-plan">Pay Annually</span>
+                <div
+                    class="cs-toggle"
+                    aria-label="click to switch plans pricing"
+                >
+                    <span aria-hidden="true" class="cs-toggle-switch"></span>
+                </div>
+                <span id="cs-option2-1387" class="cs-plan">Pay Monthly</span>
+            </div>
+        </div>
+        <ul class="cs-card-group cs-option1">
+            <li class="cs-item cs-popular">
+                <div class="cs-flex">
+                    <span class="cs-package">Standard Pack</span>
+                    <span class="cs-price">
+                        $99
+                        <span class="cs-duration">/Month</span>
+                    </span>
+                    <div class="cs-tag">
+                        <img
+                            class="cs-icon"
+                            aria-hidden="true"
+                            src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/fire.svg"
+                            decoding="async"
+                            alt="fire"
+                            width="16"
+                            height="16"
+                            loading="true"
+                        />
+                        Hot Deal
+                    </div>
+                </div>
+                <div class="cs-info">
+                    <ul class="cs-ul">
+                        <li class="cs-li">Mobile-Optimized</li>
+                        <li class="cs-li">Free Custom Domain</li>
+                        <li class="cs-li">Best Hosting</li>
+                        <li class="cs-li cs-disabled">Outstanding Support</li>
+                        <li class="cs-li cs-disabled">Happy Customers</li>
+                    </ul>
+                    <a href="" class="cs-button-transparent">Get Now</a>
+                </div>
+            </li>
+            <li class="cs-item">
+                <div class="cs-flex">
+                    <span class="cs-package">Corporate Pack</span>
+                    <span class="cs-price">
+                        $299
+                        <span class="cs-duration">/Month</span>
+                    </span>
+                    <div class="cs-tag">
+                        <img
+                            class="cs-icon"
+                            aria-hidden="true"
+                            src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/fire.svg"
+                            decoding="async"
+                            alt="fire"
+                            width="16"
+                            height="16"
+                            loading="true"
+                        />
+                        Hot Deal
+                    </div>
+                </div>
+                <div class="cs-info">
+                    <ul class="cs-ul">
+                        <li class="cs-li">Mobile-Optimized</li>
+                        <li class="cs-li">Free Custom Domain</li>
+                        <li class="cs-li">Best Hosting</li>
+                    </ul>
+                    <a href="" class="cs-button-transparent">Read More</a>
+                </div>
+            </li>
+        </ul>
+        <ul class="cs-card-group cs-option2">
+            <li class="cs-item cs-popular">
+                <div class="cs-flex">
+                    <span class="cs-package">Standard Pack</span>
+                    <span class="cs-price">
+                        $99
+                        <span class="cs-duration">/Year</span>
+                    </span>
+                    <div class="cs-tag">
+                        <img
+                            class="cs-icon"
+                            aria-hidden="true"
+                            src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/fire.svg"
+                            decoding="async"
+                            alt="fire"
+                            width="16"
+                            height="16"
+                            loading="true"
+                        />
+                        Hot Deal
+                    </div>
+                </div>
+                <div class="cs-info">
+                    <ul class="cs-ul">
+                        <li class="cs-li">Mobile-Optimized</li>
+                        <li class="cs-li">Free Custom Domain</li>
+                        <li class="cs-li">Best Hosting</li>
+                        <li class="cs-li cs-disabled">Outstanding Support</li>
+                        <li class="cs-li cs-disabled">Happy Customers</li>
+                    </ul>
+                    <a href="" class="cs-button-transparent">Get Now</a>
+                </div>
+            </li>
+            <li class="cs-item">
+                <div class="cs-flex">
+                    <span class="cs-package">Corporate Pack</span>
+                    <span class="cs-price">
+                        $299
+                        <span class="cs-duration">/Year</span>
+                    </span>
+                    <div class="cs-tag">
+                        <img
+                            class="cs-icon"
+                            aria-hidden="true"
+                            src="https://csimg.nyc3.cdn.digitaloceanspaces.com/Icons/fire.svg"
+                            decoding="async"
+                            alt="fire"
+                            width="16"
+                            height="16"
+                            loading="true"
+                        />
+                        Hot Deal
+                    </div>
+                </div>
+                <div class="cs-info">
+                    <ul class="cs-ul">
+                        <li class="cs-li">Mobile-Optimized</li>
+                        <li class="cs-li">Free Custom Domain</li>
+                        <li class="cs-li">Best Hosting</li>
+                    </ul>
+                    <a href="" class="cs-button-transparent">Read More</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<script>
+    document.addEventListener("astro:page-load", () => {
+        // Makes the script available after navigating to a new page.
+
+        const leftOption = document.querySelector(
+            "#pricing-1387 #cs-option1-1387",
+        );
+        const rightOption = document.querySelector(
+            "#pricing-1387 #cs-option2-1387",
+        );
+        const toggle = document.querySelector("#pricing-1387 .cs-toggle");
+        const cardGroup = Array.from(
+            document.querySelectorAll("#pricing-1387 .cs-card-group"),
+        );
+        // when you click the middle toggle
+        toggle.addEventListener("click", (e) => {
+            for (const item of cardGroup) {
+                item.classList.toggle("cs-active");
+            }
+            toggle.classList.toggle("active");
+        });
+        // when you click the left button option
+        leftOption.addEventListener("click", (e) => {
+            for (const item of cardGroup) {
+                item.classList.remove("cs-active");
+            }
+            toggle.classList.remove("active");
+        });
+        // when you click the right button option
+        rightOption.addEventListener("click", (e) => {
+            for (const item of cardGroup) {
+                item.classList.add("cs-active");
+            }
+            toggle.classList.add("active");
+        });
+    });
+</script>
+
+<style lang="less">
+    /*-- -------------------------- -->
+  <---          Pricing           -->
+  <--- -------------------------- -*/
+
+    /* Mobile - 360px */
+    @media only screen and (min-width: 0rem) {
+        #pricing-1387 {
+            padding: var(--sectionPadding);
+            /* clips the cs-floater and prevents it from causing overflow issues */
+            overflow: hidden;
+            background-color: #f7f7f7;
+            position: relative;
+            z-index: 1;
+
+            .cs-container {
+                width: 100%;
+                /* changes to 1280px at tablet */
+                max-width: (584/16rem);
+                margin: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                /* 48px - 64px */
+                gap: clamp(3rem, 3vw, 4rem);
+                position: relative;
+            }
+
+            .cs-content {
+                /* set text align to left if content needs to be left aligned */
+                text-align: center;
+                width: 100%;
+                max-width: (542/16rem);
+                display: flex;
+                flex-direction: column;
+                /* centers content horizontally, set to flex-start to left align */
+                align-items: center;
+            }
+
+            .cs-title {
+                max-width: 20ch;
+            }
+
+            .cs-text {
+                margin-bottom: (16/16rem);
+                &:last-of-type {
+                    margin-bottom: (32/16rem);
+                }
+            }
+
+            .cs-toggle-group {
+                width: 100%;
+                max-width: (414/16rem);
+                margin: 0;
+                padding: (12/16rem);
+                /* prevents padding and border from affecting height and width */
+                box-sizing: border-box;
+                background-color: #f1f1f4;
+                border-radius: (8/16rem);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .cs-plan {
+                font-size: (16/16rem);
+                font-weight: 700;
+                line-height: 1.5em;
+                margin: 0;
+                padding: 0;
+                color: var(--headerColor);
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .cs-toggle {
+                width: (52/16rem);
+                height: (32/16rem);
+                border-radius: (40/16rem);
+                background-color: var(--primaryLight);
+                margin: 0 (24/16rem);
+                position: relative;
+                /* prevent flexbox from squishing it */
+                flex: none;
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                &.active {
+                    &:before {
+                        opacity: 1;
+                    }
+                    .cs-toggle-switch {
+                        left: (23/16rem);
+                    }
+                }
+
+                &:before {
+                    /* top right box */
+                    content: "";
+                    width: 100%;
+                    height: 100%;
+                    background: var(--primary);
+                    opacity: 0;
+                    position: absolute;
+                    display: block;
+                    top: 0;
+                    left: 0;
+                    border-radius: (40/16rem);
+                    transition: opacity 0.3s;
+                }
+            }
+
+            .cs-toggle-switch {
+                width: (26/16rem);
+                height: (26/16rem);
+                display: block;
+                border-radius: 50%;
+                filter: drop-shadow(0px 3px 1px rgba(0, 0, 0, 0.06))
+                    drop-shadow(0px 3px 8px rgba(0, 0, 0, 0.15));
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                left: (3/16rem);
+                transition: left 0.3s;
+                background: #fff;
+            }
+
+            .cs-card-group {
+                width: 100%;
+                max-width: (630/16rem);
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                /* 16px - 20px */
+                gap: clamp(1rem, 2.3vw, 1.25rem);
+
+                &.cs-active {
+                    &.cs-option1 {
+                        /* when the active class is on the cs-card-group, run these styles */
+                        transform: scale(0);
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
+                        opacity: 0;
+                        visibility: hidden;
+
+                        .cs-item {
+                            /* when the active class is on the cs-card-group, run these styles */
+                            opacity: 0;
+                            transform: translateY(1.25rem) rotateY(90deg);
+                            transition:
+                                opacity 0.3s,
+                                transform 0.6s;
+                        }
+                    }
+
+                    &.cs-option2 {
+                        /* when the active class is on the cs-card-group, run these styles */
+                        visibility: visible;
+                        pointer-events: all;
+                        opacity: 1;
+                        position: relative;
+                        right: auto;
+                        bottom: auto;
+                        transform: scale(1);
+
+                        .cs-item {
+                            /* when the active class is on the cs-card-group, run these styles */
+                            opacity: 1;
+                            transform: translateY(0rem) rotateY(0deg);
+                        }
+                    }
+                }
+            }
+
+            .cs-option1 {
+                /* default styles when there is no active class on the cs-card-group */
+                opacity: 1;
+                visibility: visible;
+                right: 0;
+                bottom: auto;
+                transform: scale(1);
+                transform-origin: top;
+                transition:
+                    transform 0.6s,
+                    opacity 0.3s,
+                    visibility 0.3s;
+
+                .cs-item {
+                    /* default styles when there is no active class on the cs-card-group */
+                    opacity: 1;
+                    transform: translateY(0rem) rotateY(0deg);
+                    transition:
+                        opacity 0.3s,
+                        transform 0.6s;
+                    &:nth-of-type(2) {
+                        transition-delay: 0.2s;
+                    }
+                    &:nth-of-type(3) {
+                        transition-delay: 0.4s;
+                    }
+                }
+            }
+
+            .cs-option2 {
+                /* default styles when there is no active class on the cs-card-group */
+                visibility: hidden;
+                pointer-events: none;
+                opacity: 0;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                transform: scale(0);
+                transform-origin: top;
+                transition:
+                    transform 0.6s,
+                    opacity 0.3s,
+                    visibility 0.3s;
+
+                .cs-item {
+                    /* default styles when there is no active class on the cs-card-group */
+                    opacity: 0;
+                    transform: translateY(1.25rem) rotateY(90deg);
+                    transition:
+                        opacity 0.3s,
+                        transform 0.6s;
+                    &:nth-of-type(2) {
+                        transition-delay: 0.2s;
+                    }
+                    &:nth-of-type(3) {
+                        transition-delay: 0.4s;
+                    }
+                }
+            }
+
+            .cs-item {
+                text-align: center;
+                list-style: none;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: stretch;
+                justify-content: center;
+
+                &.cs-popular {
+                    .cs-flex {
+                        background-color: var(--primary);
+                    }
+
+                    .cs-tag {
+                        display: flex;
+                    }
+
+                    .cs-package,
+                    .cs-price,
+                    .cs-duration {
+                        color: var(--bodyTextColorWhite);
+                    }
+
+                    .cs-duration {
+                        opacity: 0.8;
+                    }
+
+                    .cs-button-transparent {
+                        background-color: var(--primary);
+                        color: #fff;
+                        transition:
+                            color 0.3s,
+                            border-color 0.6s,
+                            background-color 0.3s;
+
+                        &:hover {
+                            border-color: #1a1a1a;
+                            background-color: #1a1a1a;
+                        }
+                    }
+                }
+            }
+
+            .cs-flex {
+                /* 196px - 250px */
+                width: clamp(12.25rem, 25vw, 15.625rem);
+                height: clamp(12.25rem, 25vw, 15.625rem);
+                margin-bottom: (-100/16rem);
+                border-radius: 50%;
+                background-color: #e8e8e8;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                z-index: 1;
+            }
+
+            .cs-tag {
+                font-size: (13/16rem);
+                color: var(--headerColor);
+                text-transform: uppercase;
+                /* keeps the text in one line, won't jump to two lines */
+                white-space: nowrap;
+                font-weight: 700;
+                padding: (8/16rem);
+                gap: (4/16rem);
+                border-radius: 50px;
+                background-color: #fff;
+                /* clips the corners of the pseudo element */
+                overflow: hidden;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                left: 50%;
+                bottom: (-4/16rem);
+                transform: translateX(-50%);
+
+                &:before {
+                    content: "";
+                    width: 100%;
+                    height: 100%;
+                    background: var(--primary);
+                    opacity: 0.3;
+                    position: absolute;
+                    display: block;
+                    top: 0;
+                    left: 0;
+                    z-index: -1;
+                }
+            }
+
+            .cs-icon {
+                width: (20/16rem);
+                height: auto;
+                display: flex;
+            }
+
+            .cs-package {
+                /* 20px - 25px */
+                font-size: clamp(1.25rem, 2vw, 1.5625rem);
+                line-height: 1.2em;
+                text-align: inherit;
+                font-weight: 700;
+                /* 4px - 8px */
+                margin: 0 0 clamp(0.25rem, 1vw, 0.5rem) 0;
+            }
+
+            .cs-price {
+                /* 31px - 49px */
+                font-size: clamp(1.9375rem, 4vw, 3.0625rem);
+                line-height: 1.2em;
+                font-weight: 700;
+                text-align: inherit;
+                margin: 0;
+                padding: 0;
+                color: var(--headerColor);
+                display: flex;
+                justify-content: center;
+                align-items: flex-end;
+            }
+
+            .cs-duration {
+                font-size: (16/16rem);
+                line-height: 1.5em;
+                font-weight: 400;
+                text-align: inherit;
+                margin: 0;
+                /* 4px - 8px */
+                padding: clamp(0.25rem, 1vw, 0.5rem) 0;
+                color: var(--bodyTextColor);
+                display: block;
+            }
+
+            .cs-info {
+                width: 100%;
+                padding: (86/16rem) (40/16rem) (40/16rem);
+                /* prevents padding from affecting height and width */
+                box-sizing: border-box;
+                background-color: #fff;
+                border-radius: (24/16rem);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .cs-ul {
+                width: 100%;
+                margin: (40/16rem) 0 (40/16rem) 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: (12/16rem);
+                position: relative;
+            }
+
+            .cs-li {
+                font-size: (16/16rem);
+                list-style: none;
+                line-height: 1.5em;
+                font-weight: 400;
+                text-align: inherit;
+                margin: 0;
+                padding: 0;
+                color: var(--bodyTextColor);
+                display: block;
+
+                &.cs-disabled {
+                    opacity: 0.5;
+                }
+            }
+
+            .cs-button-transparent {
+                font-size: (16/16rem);
+                line-height: (56/16rem);
+                text-decoration: none;
+                font-weight: 700;
+                overflow: hidden;
+                margin: 0;
+                color: var(--primary);
+                padding: 0 (48/16rem);
+                border-radius: (30/16rem);
+                border: 1px solid var(--primary);
+                display: inline-block;
+                position: relative;
+                z-index: 1;
+                transition: color 0.3s;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    display: block;
+                    height: 100%;
+                    width: 0%;
+                    background: #1a1a1a;
+                    opacity: 1;
+                    top: 0;
+                    left: 0;
+                    z-index: -1;
+                    transition: width 0.3s;
+                }
+
+                &:hover {
+                    color: var(--bodyTextColorWhite);
+                    border-color: #1a1a1a;
+                    &:before {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .cs-button-transparent {
+                /* this is the section specific override if you choose to pull out the cs-button-transparent and place it in a global stylesheet to resue acorss the entire site */
+                margin-top: auto;
+            }
+        }
+    }
+
+    /* Tablet - 768px */
+    @media only screen and (min-width: 48rem) {
+        #pricing-1387 {
+            .cs-container {
+                max-width: (1280/16rem);
+
+                .cs-card-group {
+                    flex-direction: row;
+                    align-items: stretch;
+                }
+            }
+        }
+    }
+
+    /* Desktop - 1024px */
+    @media only screen and (min-width: 64rem) {
+        #pricing-1387 {
+            .cs-container {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .cs-content {
+                text-align: left;
+                width: 47%;
+                align-items: flex-start;
+            }
+
+            .cs-info {
+                min-height: (432/16rem);
+            }
+        }
+    }
+</style>
