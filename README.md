@@ -21,6 +21,7 @@
 - [Project Structure](#projectStructure)
   - [Project Tree](#projectTree)
   - [Root Files and Folders](#rootFilesAndFolders)
+  - [Sitemap Configuration](#sitemapConfiguration)
 - [Expanding the Project](#expandingTheProject)
   - [Reusing Code](#reusingCode)
   - [Scripts and Event Handling](#scripts)
@@ -242,6 +243,36 @@ An Astro configuration file. It's already set up for you, but you can extend it 
 #### `tsconfig.json`
 A TypeScript configuration file. Optional. Includes TypeScript configuration options for your Astro project. Some features (like npm package imports) aren’t fully supported in the editor without a tsconfig.json file.
 
+<a name="sitemapConfiguration"></a>
+
+## Sitemap Configuration
+
+This template includes automatic sitemap generation using `@astrojs/sitemap`. The sitemap helps search engines better crawl and index your site.
+
+### Features
+- Automatically generates `sitemap-index.xml` and `sitemap-0.xml`
+- Excludes admin routes from indexing
+- No manual XML creation needed
+
+### Configuration
+The sitemap is pre-configured in `astro.config.mjs`. Here's what's included:
+
+```js
+import sitemap from '@astrojs/sitemap';
+
+export default defineConfig({
+  site: 'https://yourwebsite.com',  // Replace with your site URL
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/admin'),
+      changefreq: 'weekly',
+      priority: 0.7
+    })
+  ]
+});
+```
+
+> Note: Make sure to replace `https://yourwebsite.com` with your actual site URL.
 
 <a name="expandingTheProject"></a>
 
