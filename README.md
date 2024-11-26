@@ -15,13 +15,11 @@
 
 - [Overview](#overview)
 - [Getting Started](#gettingStarted)
-- [Acknowledgments](#acknowledgments)
 - [Prerequisites](#prerequisites)
 - [Features](#features)
 - [Project Structure](#projectStructure)
   - [Project Tree](#projectTree)
   - [Root Files and Folders](#rootFilesAndFolders)
-  - [Sitemap Configuration](#sitemapConfiguration)
 - [Expanding the Project](#expandingTheProject)
   - [Reusing Code](#reusingCode)
   - [Scripts and Event Handling](#scripts)
@@ -32,7 +30,9 @@
   - [Configuring the CMS](#configuringTheCms)
   - [Astro Content Collections](#AstroContentCollections)
   - [Preloading images](#preloadingimages)
+  - [Sitemap Configuration](#sitemapConfiguration)
 - [Deployment](#deployment)
+- [Acknowledgments](#acknowledgments)
 - [Conclusion](#conclusion)
 
 <a name="overview"></a>
@@ -63,13 +63,6 @@ project's `<head>` and contact information will automatically be filled out, pro
 You can find all of CodeStitches `:root` variables, as well as .cs-topper, .cs-title and .cs-text, within the `root` stylesheet. Feel free to adjust these, or use our Content Flair micro-stitches, to update site-wide styles quickly.
 
 
-<a name="acknowledgments"></a>
-
-## Acknowledgments
-
-The author would like to acknowledge:
-* [Cedar Studios](https://github.com/cedar-studios) - Their [Intermediate-Astro-Kit-LESS](https://github.com/cedar-studios/Intermediate-Astro-Kit-LESS/tree/master) is the base of this template, which aims to improve on a few issues such as a breaking update to Astro v.4 due to outdated `astro-netlify-cms` integration.
-* [CodeStitch](https://codestitch.app/) - Some of their free stitches were used in this template.
 
 <a name="prerequisites"></a>
 
@@ -131,7 +124,6 @@ Astro leverages an opinionated folder layout for your project. Every Astro proje
 |   |   └── svgs/
 |   |—— _redirects
 |   |—— robots.txt
-|   └── sitemap.html
 ├── src/
 |   ├── assets/
 |   |   └—— images/
@@ -240,37 +232,6 @@ An Astro configuration file. It's already set up for you, but you can extend it 
 
 #### `tsconfig.json`
 A TypeScript configuration file. Optional. Includes TypeScript configuration options for your Astro project. Some features (like npm package imports) aren’t fully supported in the editor without a tsconfig.json file.
-
-<a name="sitemapConfiguration"></a>
-
-## Sitemap Configuration
-
-This template includes automatic sitemap generation using <a href="https://docs.astro.build/en/guides/integrations-guide/sitemap/">`@astrojs/sitemap`</a>. The sitemap helps search engines better crawl and index your site.
-
-### Features
-- Automatically generates `sitemap-index.xml` and `sitemap-0.xml`
-- Excludes admin routes from indexing
-- No manual XML creation needed
-
-### Configuration
-The sitemap is pre-configured in `astro.config.mjs`. Here's what's included:
-
-```js
-import sitemap from '@astrojs/sitemap';
-
-export default defineConfig({
-  site: 'https://yourwebsite.com',  // Replace with your site URL
-  integrations: [
-    sitemap({
-      filter: (page) => !page.includes('/admin'),
-      changefreq: 'weekly',
-      priority: 0.7
-    })
-  ]
-});
-```
-
-> Note: Make sure to replace `https://yourwebsite.com` with your actual site URL.
 
 <a name="expandingTheProject"></a>
 
@@ -607,13 +568,46 @@ const optimizedImage = await getOptimizedImage(landingImage)
 
 You only need to change the path of the asset you want to preload. The rest is managed behind the scenes.
 
+<a name="sitemapConfiguration"></a>
+
+## Sitemap Configuration
+
+This template includes automatic sitemap generation using <a href="https://docs.astro.build/en/guides/integrations-guide/sitemap/">`@astrojs/sitemap`</a>. The sitemap helps search engines better crawl and index your site.
+
+### Features
+- Automatically generates `sitemap-index.xml` and `sitemap-0.xml`
+- Excludes admin routes from indexing
+- No manual XML creation needed
+
+### Configuration
+The sitemap is pre-configured in `astro.config.mjs`. Here's what's included:
+
+```js
+import sitemap from '@astrojs/sitemap';
+
+export default defineConfig({
+  site: 'https://yourwebsite.com',  // Replace with your site URL
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/admin'),
+      changefreq: 'weekly',
+      priority: 0.7
+    })
+  ]
+});
+```
+
+> Note: Make sure to replace `https://yourwebsite.com` with your actual site URL in `astro.config.mjs` and `robots.txt`.
+
+Fore more configuration options, read the [full Astro Sitemap documentation](https://docs.astro.build/en/guides/integrations-guide/sitemap/)
+
 <a name="deployment"></a>
 
 ## Deployment
 
 0. **Before** you deploy, it is recommended to test the build. Run `npm run build` to build the project. Once done, run `npm run preview` which you can access on `http://localhost:4321/`. This allows you to test your website as if it was deployed on your host. 
 
-1. Ensure the sitemap, robots.txt and \_redirects have been filled out. Instructions and tools for how to do so can be found in the File Structure section
+1. Ensure the astro.config.mjs, client.json, robots.txt and \_redirects have been filled out. 
 2. Navigate to your Netlify Admin Panel, click _Add new site | Import an existing project_
 3. Follow the instructions to connect your GitHub repository to Netlify.
 4. Once deployed, go to the project's page, click on `Site configuration` then `Identity` in the navigation, then click `Enable Identity`
