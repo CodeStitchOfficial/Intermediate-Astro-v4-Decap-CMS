@@ -21,6 +21,7 @@
 - [Project Structure](#projectStructure)
   - [Project Tree](#projectTree)
   - [Root Files and Folders](#rootFilesAndFolders)
+  - [Sitemap Configuration](#sitemapConfiguration)
 - [Expanding the Project](#expandingTheProject)
   - [Reusing Code](#reusingCode)
   - [Scripts and Event Handling](#scripts)
@@ -168,12 +169,11 @@ Astro leverages an opinionated folder layout for your project. Every Astro proje
 #### `public/*`
 The `public/` directory is for files and assets in your project that do not need to be processed during Astro’s build process. The files in this folder will be copied into the build folder untouched, and then your site will be built.
 
-This behavior makes `public/` ideal for common assets like images and fonts, or special files such as`_redirects`, `robots.txt` and `sitemap.xml`.
+This behavior makes `public/` ideal for common assets like images and fonts, or special files such as`_redirects` and `robots.txt`.
 
 - \_redirects - To configure redirects. Read more on <a href="https://docs.netlify.com/routing/redirects/">Netlify</a>
 - content/ - Data to render pages from, such as the blog.
 - robots.txt - Instructions for site crawlers. Learn more, and generate your own, <a href="https://en.ryte.com/free-tools/robots-txt-generator/">here</a>
-- sitemap.xml - A map of the pages on the domain. Create your own after deployment <a href="https://www.xml-sitemaps.com/">here</a>
 
 You can place CSS and JavaScript in your public/ directory, but be aware that those files will not be bundled or optimized in your final build.
 
@@ -242,6 +242,36 @@ An Astro configuration file. It's already set up for you, but you can extend it 
 #### `tsconfig.json`
 A TypeScript configuration file. Optional. Includes TypeScript configuration options for your Astro project. Some features (like npm package imports) aren’t fully supported in the editor without a tsconfig.json file.
 
+<a name="sitemapConfiguration"></a>
+
+## Sitemap Configuration
+
+This template includes automatic sitemap generation using <a href="https://docs.astro.build/en/guides/integrations-guide/sitemap/">`@astrojs/sitemap`</a>. The sitemap helps search engines better crawl and index your site.
+
+### Features
+- Automatically generates `sitemap-index.xml` and `sitemap-0.xml`
+- Excludes admin routes from indexing
+- No manual XML creation needed
+
+### Configuration
+The sitemap is pre-configured in `astro.config.mjs`. Here's what's included:
+
+```js
+import sitemap from '@astrojs/sitemap';
+
+export default defineConfig({
+  site: 'https://yourwebsite.com',  // Replace with your site URL
+  integrations: [
+    sitemap({
+      filter: (page) => !page.includes('/admin'),
+      changefreq: 'weekly',
+      priority: 0.7
+    })
+  ]
+});
+```
+
+> Note: Make sure to replace `https://yourwebsite.com` with your actual site URL.
 
 <a name="expandingTheProject"></a>
 
