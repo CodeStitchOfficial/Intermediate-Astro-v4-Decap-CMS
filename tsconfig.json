@@ -10,7 +10,7 @@
       "@data/*": ["src/data/*"],
       "@styles/*": ["src/styles/*"],
       "@components/*": ["src/components/*"],
-      "@libs/*": ["src/libs/*"]
+      "@js/*": ["src/js/*"]
     },
     "incremental": true,
 		"skipLibCheck": true
