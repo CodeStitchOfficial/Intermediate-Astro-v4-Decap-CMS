@@ -62,26 +62,6 @@ const { description, title, preloadedImage } = Astro.props;
             }
             </title>
 
-            <!-- Decap CMS scripts -->
-            {Astro.url.pathname === "/" &&
-                <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-                <script defer>
-                    if (window.netlifyIdentity) {
-                        window
-                            .netlifyIdentity
-                            .on('init', (user) => {
-                                if (!user) {
-                                    window
-                                        .netlifyIdentity
-                                        .on('login', () => {
-                                            document.location.href = '/admin/';
-                                        });
-                                }
-                            });
-                    }
-                </script>
-            }
-
             <!-- Sitewide Scripts -->
             <script src="../assets/js/nav.js"></script>
         </head>

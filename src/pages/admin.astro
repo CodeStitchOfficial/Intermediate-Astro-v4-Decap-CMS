@@ -1,6 +1,4 @@
-<!-- This page is the entry point to the the Decap CMS admin dashboard.-->
-<!-- It should not be modified. -->
-<!doctype html>
+<!-- This page is the entry point to the the Decap CMS admin dashboard.--><!-- It should not be modified. --><!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -8,8 +6,12 @@
     <meta name="robots" content="noindex" />
     <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
     <title>Decap CMS Dashboard</title>
+    <!-- Netlify Identity widget -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"
+    ></script>
   </head>
   <body>
+    <!-- Decap CMS script -->
     <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
   </body>
 </html>
