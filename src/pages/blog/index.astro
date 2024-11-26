@@ -4,7 +4,7 @@ import CTA from "@components/CTA.astro";
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
-import { formatDate } from "@libs/utils.js";
+import { formatDate, getOptimizedImage } from "@js/utils";
 import Landing from "@components/Landing.astro";
 import FeaturedPost from "@components/FeaturedPost.astro";
 import "@styles/blog.less";
@@ -15,7 +15,6 @@ posts.sort(
 );
 
 // Optimize our landing image and pass it as props to the BaseLayout (for preloading) and Landing (for rendering)
-import {getOptimizedImage} from "@libs/utils"
 import landingImage from "@assets/images/landing.jpg" // <-- THE PATH TO THE ASSET YOU WANT TO PRELOAD - The asset must live in src
 const optimizedImage = await getOptimizedImage(landingImage)
 ---

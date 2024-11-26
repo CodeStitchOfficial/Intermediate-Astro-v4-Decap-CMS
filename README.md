@@ -136,8 +136,6 @@ Astro leverages an opinionated folder layout for your project. Every Astro proje
 |   ├── assets/
 |   |   └—— images/
 |   |       └── blog/
-|   |   └—— js/
-|   |       └── nav.js
 |   ├── components/
 |   ├── content/
 |   |   |—— config.ts
@@ -148,7 +146,8 @@ Astro leverages an opinionated folder layout for your project. Every Astro proje
 │   ├── icons/
 │   ├── layouts/
 │   │   └── BaseLayout.astro
-|   ├── libs/
+|   ├── js/
+│   │   ├── nav.js
 |   |   └── utils.js
 │   ├── pages/
 |   |   └── blog/
@@ -215,7 +214,7 @@ SVGs used by the <Icon /> component **must** be placed in this folder.
 ##### `src/layouts`
 Layouts are Astro components that define the UI structure shared by one or more pages. The `BaseLayout.astro` file acts as a giant wrapper for each individual page, where the content is injected through the `<slot /> `component.
 
-##### `src/libs`
+##### `src/js`
 Contains helper functions.
 
 ##### `src/pages`
@@ -336,7 +335,7 @@ Astro will build, optimize, and add these scripts to the page for you.
 
 For example, `nav.js` lives in `src/` and is used in `Baselayout.astro` like so: 
 
-`<script src="../assets/js/nav.js"></script>`
+`<script src="@js/nav.js"></script>`
 
 
 2. Scoped to the component
