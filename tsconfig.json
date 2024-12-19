@@ -1,8 +1,10 @@
 {
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    "strictNullChecks": true, // necessary for Astro content collections
-    "checkJs": false, // set to true if you want strict checks on your .js files 
+    // necessary for Astro content collections
+    "strictNullChecks": true,
+    // set to true if you want strict checks on your .js files
+    "checkJs": false, 
     "baseUrl": ".",
     // creates shortcuts for imports
     "paths": {
