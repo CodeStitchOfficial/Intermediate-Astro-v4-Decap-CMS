@@ -82,7 +82,7 @@ Only the vanilla web technologies are _required_ before using this kit, with som
 
 * Runs on Astro v4
 * Decap CMS integration with a blog ready to go. Give access to your client via Netlify Identity to allow them to write blog posts. Their edits will be pushed to the repository, triggering a re-build automatically.
-* Astro's `<ViewTransitions />` integration
+* Astro's View Transitions integration
 * Components, props and scoped styles, as demonstrated in `/src/components/Landing.astro` for example
 * Astro's built-in components such as `<Picture />`, as demonstrated in `/src/components/Landing.astro` for example
 * Astro's content collections, leveraging image validation. This allows the use of Astro components on user-uploaded images via the CMS, automatically converting your images to modern `.webp` or `.avif` format.
